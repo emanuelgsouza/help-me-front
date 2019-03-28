@@ -2,7 +2,10 @@
   <q-layout>
     <q-page-container>
       <QPage>
-        <HomeHeader />
+        <HomeHeader/>
+
+        <!-- <HomeSection /> -->
+        <GithubCorners />
       </QPage>
     </q-page-container>
   </q-layout>
@@ -10,11 +13,14 @@
 
 <script>
 import HomeHeader from './components/Header'
+// import HomeSection from './components/Section'
+import GithubCorners from './components/GithubCorners'
 
 export default {
   name: 'HomeLayout',
   components: {
-    HomeHeader
+    HomeHeader,
+    GithubCorners
   }
 }
 </script>
