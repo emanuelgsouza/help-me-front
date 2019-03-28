@@ -1,12 +1,7 @@
+import HomeRoutes from 'src/modules/Home/routes'
 
 const routes = [
-  {
-    path: '/',
-    component: () => import('layouts/MyLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  }
+  ...HomeRoutes
 ]
 
 // Always leave this as last one
