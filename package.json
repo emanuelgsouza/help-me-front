@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "firebase": "^5.9.3",
+    "lodash": "^4.17.11",
     "quasar": "^1.0.0-beta.15"
   },
   "devDependencies": {
