@@ -12,7 +12,8 @@
         label="Help-Me!"
         color="grey-1"
         text-color="primary"
-        size="lg" />
+        size="lg"
+        :to="{ 'name': 'dashboard.index' }" />
     </div>
   </header>
 </template>

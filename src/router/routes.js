@@ -1,7 +1,9 @@
 import HomeRoutes from 'src/modules/Home/routes'
+import DashboardRoutes from 'src/modules/Dashboard/routes'
 
 const routes = [
-  ...HomeRoutes
+  ...HomeRoutes,
+  ...DashboardRoutes
 ]
 
 // Always leave this as last one
