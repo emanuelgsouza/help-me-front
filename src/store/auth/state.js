@@ -1,6 +1,6 @@
 export default {
   user: null,
-  loadingUser: true,
+  loadingUser: false,
   token: null,
   error: false,
   errors: []
