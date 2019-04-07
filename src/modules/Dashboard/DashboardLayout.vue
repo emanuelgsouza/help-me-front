@@ -19,17 +19,34 @@
 
     <q-page-container>
       <router-view />
+
+      <QPageSticky position="bottom-right" :offset="[18, 18]">
+        <QFab color="negative" icon="keyboard_arrow_up" direction="up">
+          <QFabAction
+            color="primary"
+            icon="add"
+            :to="{ 'name': 'dashboard.problems.create' }" />
+        </QFab>
+      </QPageSticky>
     </q-page-container>
 
   </q-layout>
 </template>
 
 <script>
+import {
+  QFab,
+  QFabAction,
+  QPageSticky
+} from 'quasar'
 import HeaderUserActions from './components/Header/UserActions'
 
 export default {
   name: 'DashboardLayout',
   components: {
+    QFab,
+    QFabAction,
+    QPageSticky,
     HeaderUserActions
   },
   data: () => ({
