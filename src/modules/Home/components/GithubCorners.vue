@@ -1,5 +1,5 @@
 <template functional>
-  <a href="https://github.com/emanuelgsouza/help-me-front" class="github-corner" aria-label="View source on GitHub">
+  <a href="https://github.com/emanuelgsouza/help-me" class="github-corner" aria-label="View source on GitHub">
     <svg
       width="80"
       height="80"
