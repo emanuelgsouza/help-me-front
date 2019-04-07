@@ -11,7 +11,10 @@ const initializeApp = store => {
     store.commit(`auth/${TYPES.CLEAR_USER_LOADING}`)
 
     console.log('User information loaded')
-    if (!user) return
+    if (!user) {
+      store.commit(`auth/${TYPES.CLEAR_USER}`)
+      return
+    }
     const _user = factoryUser(user)
     store.commit(`auth/${TYPES.SET_USER}`, _user)
     // const referenceUser = database.ref('users').child(user.uid)

@@ -37,7 +37,7 @@ import {
   // QIcon,
   QItemLabel
 } from 'quasar'
-import { loginWithGoogle } from 'src/services/firebase/auth'
+import { loginWithGoogle, logout } from 'src/services/firebase/auth'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -58,7 +58,7 @@ export default {
       loginWithGoogle()
     },
     logout () {
-      //
+      logout()
     }
   }
 }
