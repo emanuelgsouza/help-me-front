@@ -8,6 +8,8 @@
         <q-toolbar-title>
           Help-Me!
         </q-toolbar-title>
+
+        <HeaderUserActions />
       </q-toolbar>
     </q-header>
 
@@ -23,9 +25,12 @@
 </template>
 
 <script>
+import HeaderUserActions from './components/Header/UserActions'
+
 export default {
   name: 'DashboardLayout',
   components: {
+    HeaderUserActions
   },
   data: () => ({
     left: false

@@ -14,5 +14,11 @@ export default {
   [ TYPES.CLEAR_ERROR ] (store) {
     store.error = false
     store.error_message = null
+  },
+  [ TYPES.SET_USER_LOADING ] (store) {
+    store.loadingUser = true
+  },
+  [ TYPES.CLEAR_USER_LOADING ] (store) {
+    store.loadingUser = false
   }
 }
