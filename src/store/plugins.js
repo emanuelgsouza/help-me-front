@@ -1,4 +1,9 @@
-import { firebase } from '../services/firebase'
+import { firebase } from 'src/services/firebase'
+import {
+  checkExistUser,
+  setUser,
+  getProblemsByUser
+} from 'src/services/firebase/database'
 import * as TYPES from './auth/mutation-types'
 import factoryUser from 'src/domains/User/factory-user'
 
@@ -7,7 +12,7 @@ const initializeApp = store => {
   store.commit(`auth/${TYPES.SET_USER_LOADING}`)
   console.log('Get user information')
 
-  firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(async user => {
     store.commit(`auth/${TYPES.CLEAR_USER_LOADING}`)
 
     console.log('User information loaded')
@@ -17,13 +22,20 @@ const initializeApp = store => {
     }
     const _user = factoryUser(user)
     store.commit(`auth/${TYPES.SET_USER}`, _user)
-    // const referenceUser = database.ref('users').child(user.uid)
-    // Get user problems here
-    // referenceUser
-    // .child('chats')
-    // .on('value', function addArgument (data) {
-    // dispatchAction(data, 'addChats')
-    // })
+
+    const hasUser = await checkExistUser(_user.uid)
+
+    if (hasUser) {
+      console.log('Get problems by user')
+
+      return getProblemsByUser(_user.uid)
+        .then(data => {
+          console.log('Problems ...')
+          console.log({ data })
+        })
+    }
+
+    await setUser(_user)
   })
 }
 export default [ initializeApp ]
