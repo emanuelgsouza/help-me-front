@@ -20,5 +20,8 @@ export default {
   },
   [ TYPES.CLEAR_USER_LOADING ] (store) {
     store.loadingUser = false
+  },
+  [ TYPES.SET_WAS_LOGIN ] (store, value) {
+    store.wasLogin = value
   }
 }

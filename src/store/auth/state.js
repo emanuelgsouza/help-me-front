@@ -3,5 +3,6 @@ export default {
   loadingUser: false,
   token: null,
   error: false,
-  errors: []
+  errors: [],
+  wasLogin: false
 }

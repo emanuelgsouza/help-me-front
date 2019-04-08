@@ -7,9 +7,5 @@ export default (uidUser) => {
     .child('users')
     .child(uidUser)
     .once('value')
-    .then(data => {
-      const value = data.val()
-      console.log({ value })
-      return !isNil(value)
-    })
+    .then(data => !isNil(data.val()))
 }
