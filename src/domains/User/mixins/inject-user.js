@@ -3,7 +3,7 @@ import { get } from 'lodash'
 
 export default {
   computed: {
-    ...mapGetters('auth', [ 'hasUser', 'username', 'isUserLoading' ]),
+    ...mapGetters('auth', [ 'hasUser', 'username', 'isUserLoading', 'userUid' ]),
     ...mapState('auth', [ 'user' ])
   },
   methods: {

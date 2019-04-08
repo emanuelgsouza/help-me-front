@@ -7,24 +7,43 @@
     <QSeparator spaced />
 
     <QCardSection class="row justify-between q-pa-xs">
+      <SolutionModal ref="modal" :solution="sugestion" />
+
       <QChip square color="primary" text-color="white" icon="event">
         {{ createdAt }}
       </QChip>
 
       <div class="row items-center">
-        <QIcon class="lightbulb cursor-pointer" name="far fa-lightbulb" size="32px" />
+        <QIcon
+          v-if="isCardFromUser"
+          name="fas fa-user-alt"
+          size="32px">
+          <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+            Problema reportado por mim
+          </QTooltip>
+        </QIcon>
+
+        <QIcon
+          class="q-ml-md lightbulb cursor-pointer"
+          name="far fa-lightbulb"
+          size="32px"
+          @click="openSugestionModal" />
       </div>
     </QCardSection>
   </QCard>
 </template>
 
 <script>
-import { QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
+import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
 import { get } from 'lodash'
+import SolutionModal from './solution'
+import injectUser from 'src/domains/User/mixins/inject-user'
+import moment from 'moment'
 
 export default {
   name: 'ProblemCard',
-  components: { QCard, QCardSection, QSeparator, QChip, QIcon },
+  mixins: [ injectUser ],
+  components: { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon, SolutionModal },
   props: {
     problem: {
       type: Object,
@@ -39,7 +58,18 @@ export default {
       return get(this.problem, 'sugestion', '')
     },
     createdAt () {
-      return get(this.problem, 'created', '')
+      return moment(get(this.problem, 'created', '')).format('MM-DD-YYYY HH:mm:ss')
+    },
+    problemUserUid () {
+      return get(this.problem, 'user_uid', '')
+    },
+    isCardFromUser () {
+      return this.userUid === this.problemUserUid
+    }
+  },
+  methods: {
+    openSugestionModal () {
+      this.$refs.modal.open()
     }
   }
 }
