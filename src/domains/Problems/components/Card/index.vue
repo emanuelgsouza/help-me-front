@@ -7,7 +7,7 @@
     <QSeparator spaced />
 
     <QCardSection class="row justify-between q-pa-xs">
-      <SolutionModal ref="modal" :solution="sugestion" />
+      <SolutionModal ref="modal" :solution="suggestion" />
 
       <QChip square color="primary" text-color="white" icon="event">
         {{ createdAt }}
@@ -24,10 +24,11 @@
         </QIcon>
 
         <QIcon
+          v-if="hasSuggestion"
           class="q-ml-md lightbulb cursor-pointer"
           name="far fa-lightbulb"
           size="32px"
-          @click="openSugestionModal" />
+          @click="openSuggestionModal" />
       </div>
     </QCardSection>
   </QCard>
@@ -35,7 +36,7 @@
 
 <script>
 import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
-import { get } from 'lodash'
+import { get, isEmpty } from 'lodash'
 import SolutionModal from './solution'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import moment from 'moment'
@@ -54,8 +55,11 @@ export default {
     description () {
       return get(this.problem, 'description', '')
     },
-    sugestion () {
+    suggestion () {
       return get(this.problem, 'sugestion', '')
+    },
+    hasSuggestion () {
+      return !isEmpty(this.suggestion)
     },
     createdAt () {
       return moment(get(this.problem, 'created', '')).format('MM-DD-YYYY HH:mm:ss')
@@ -68,7 +72,7 @@ export default {
     }
   },
   methods: {
-    openSugestionModal () {
+    openSuggestionModal () {
       this.$refs.modal.open()
     }
   }

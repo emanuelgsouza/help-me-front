@@ -14,7 +14,20 @@
     </q-header>
 
     <q-drawer v-model="left" side="left" bordered>
-      <!-- drawer content -->
+      <QList v-for="(menuItem, index) in menuList" :key="index">
+
+        <QItem clickable :to="menuItem.to" v-ripple>
+          <QItemSection avatar>
+            <QIcon :name="menuItem.icon" />
+          </QItemSection>
+          <QItemSection>
+            {{ menuItem.label }}
+          </QItemSection>
+        </QItem>
+
+        <q-separator v-if="menuItem.separator" />
+
+      </QList>
     </q-drawer>
 
     <q-page-container>
@@ -37,7 +50,12 @@
 import {
   QFab,
   QFabAction,
-  QPageSticky
+  QPageSticky,
+  QList,
+  QItem,
+  QItemSection,
+  QIcon,
+  QSeparator
 } from 'quasar'
 import HeaderUserActions from './components/Header/UserActions'
 
@@ -47,10 +65,33 @@ export default {
     QFab,
     QFabAction,
     QPageSticky,
+    QList,
+    QItem,
+    QItemSection,
+    QIcon,
+    QSeparator,
     HeaderUserActions
   },
   data: () => ({
-    left: false
+    left: false,
+    menuList: [
+      {
+        icon: 'inbox',
+        label: 'Problemas',
+        separator: true,
+        to: {
+          name: 'dashboard.problems.list'
+        }
+      },
+      {
+        icon: 'add',
+        label: 'Criar Problema',
+        separator: true,
+        to: {
+          name: 'dashboard.problems.create'
+        }
+      }
+    ]
   })
 }
 </script>
