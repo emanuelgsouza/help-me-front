@@ -9,7 +9,7 @@
     </div>
 
     <QInnerLoading :showing="loading">
-      <QSpinnerGears color="primary" size="42px" />
+      <QSpinnerGears color="primary" size="64px" />
     </QInnerLoading>
   </QPage>
 </template>
