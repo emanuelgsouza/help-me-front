@@ -3,7 +3,7 @@ import checkExistUser from './check-exist-user'
 import moment from 'moment'
 
 const setUser = user => {
-  const created = moment.utc().format('YYYY-MM-DD HH:mm:ss')
+  const created = moment().format('x')
   user['created'] = created
 
   return database

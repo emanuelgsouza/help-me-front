@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const createProblem = async (problem, user) => {
   const key = returnKey('problems')
-  const created = moment.utc().format('YYYY-MM-DD HH:mm:ss')
+  const created = moment().format('x')
   problem['user_uid'] = user.uid
   problem['created'] = created
 
