@@ -7,13 +7,19 @@
       filled
       label="Qual o seu nome?"
       v-model="model.name"
-      disable />
+      disable
+      :rules="[
+        val => val.length > 0 || 'Preencha seu nome'
+      ]" />
 
     <QInput
       filled
       label="Qual o seu email?"
       v-model="model.email"
-      disable />
+      disable
+      :rules="[
+        val => val.length > 0 || 'Preencha seu e-mail'
+      ]" />
 
     <QInput
       filled
@@ -21,14 +27,20 @@
       mask="(##) ##### - ####"
       hint="Mask: (##) ##### - ####"
       v-model="model.phone"
-      :disable="disableInput" />
+      :disable="disableInput"
+      :rules="[
+        val => val.length > 0 || 'Preencha seu número de telefone'
+      ]" />
 
     <QInput
       filled
       label="Descreva seu problema: "
       type="textarea"
       v-model="model.description"
-      :disable="disableInput" />
+      :disable="disableInput"
+      :rules="[
+        val => val.length > 0 || 'Preencha seu problema'
+      ]" />
 
     <QInput
       filled
@@ -55,6 +67,7 @@
 </template>
 
 <script>
+import { trim } from 'lodash'
 import { QForm, QInput } from 'quasar'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 
@@ -63,11 +76,11 @@ export default {
   mixins: [ injectUserMixin ],
   data: () => ({
     model: {
-      name: null,
-      email: null,
-      phone: null,
-      description: null,
-      suggestion: null
+      name: '',
+      email: '',
+      phone: '',
+      description: '',
+      suggestion: ''
     }
   }),
   components: {
@@ -86,9 +99,18 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$emit('submit', this.model)
+      this.$emit('submit', this.factoryModelToSave(this.model))
     },
-    onReset () {}
+    onReset () {
+      this.model = { ...this.$options.data().model }
+    },
+    factoryModelToSave (model) {
+      const { description, suggestion } = model
+      return {
+        description: trim(description),
+        suggestion: trim(suggestion)
+      }
+    }
   },
   mounted () {
     this.injectUserInModel()
