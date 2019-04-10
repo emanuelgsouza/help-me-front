@@ -7,44 +7,49 @@
       filled
       label="Qual o seu nome?"
       v-model="model.name"
-      :disable="hasUser" />
+      disable />
 
     <QInput
       filled
       label="Qual o seu email?"
       v-model="model.email"
-      :disable="hasUser" />
+      disable />
 
     <QInput
       filled
       label="Qual o seu número de telefone?"
       mask="(##) ##### - ####"
       hint="Mask: (##) ##### - ####"
-      v-model="model.phone" />
+      v-model="model.phone"
+      :disable="disableInput" />
 
     <QInput
       filled
       label="Descreva seu problema: "
       type="textarea"
-      v-model="model.description" />
+      v-model="model.description"
+      :disable="disableInput" />
 
     <QInput
       filled
       label="Você gostaria de deixar alguma solução?"
       type="textarea"
-      v-model="model.suggestion" />
+      v-model="model.suggestion"
+      :disable="disableInput" />
 
     <div class="q-mt-md">
       <QBtn
         label="Cadastrar"
         type="submit"
-        color="primary"/>
+        color="primary"
+        :disable="disableInput" />
       <QBtn
         label="Limpar"
         type="reset"
         color="primary"
         flat
-        class="q-ml-sm" />
+        class="q-ml-sm"
+        :disable="disableInput" />
     </div>
   </QForm>
 </template>
@@ -68,6 +73,11 @@ export default {
   components: {
     QForm,
     QInput
+  },
+  computed: {
+    disableInput () {
+      return !this.hasUser
+    }
   },
   watch: {
     user (val) {

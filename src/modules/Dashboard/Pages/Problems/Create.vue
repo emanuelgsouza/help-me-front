@@ -28,6 +28,14 @@ export default {
   }),
   methods: {
     onSubmit (model) {
+      if (!this.hasUser) {
+        return this.$q.notify({
+          message: 'Você não está cadastrado para poder criar um problema',
+          color: 'negative',
+          icon: 'thumb_down'
+        })
+      }
+
       this.model = { ...model }
 
       return createProblem(model, this.user)
