@@ -32,7 +32,7 @@
       filled
       label="Você gostaria de deixar alguma solução?"
       type="textarea"
-      v-model="model.sugestion" />
+      v-model="model.suggestion" />
 
     <div class="q-mt-md">
       <QBtn
@@ -62,7 +62,7 @@ export default {
       email: null,
       phone: null,
       description: null,
-      sugestion: null
+      suggestion: null
     }
   }),
   components: {
