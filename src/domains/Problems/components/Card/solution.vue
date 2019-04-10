@@ -1,42 +1,33 @@
 <template>
-  <QDialog v-model="alert">
-    <QCard>
-      <QCardSection>
-        <div class="text-h6">Solução Proposta</div>
-      </QCardSection>
+  <AppModal
+    ref="modal"
+    actions-align="right">
+    <div slot="title">
+      <div class="text-h6">Solução Proposta</div>
+    </div>
 
-      <QCardSection>
-        {{ solution }}
-      </QCardSection>
+    <div>
+      <p class="text-body1"> {{ solution }} </p>
+    </div>
 
-      <QCardActions align="right">
-        <QBtn flat label="OK" color="primary" v-close-popup />
-      </QCardActions>
-    </QCard>
-  </QDialog>
+    <div slot="actions">
+      <QBtn flat label="OK" color="primary" v-close-popup />
+    </div>
+  </AppModal>
 </template>
 
 <script>
-import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
+import AppModal from 'src/components/Modal'
+import modalMixin from 'src/support/mixins/modal'
 
 export default {
   name: 'SolutionModal',
-  components: { QDialog, QCard, QCardSection, QCardActions, QBtn },
+  mixins: [ modalMixin ],
+  components: { AppModal },
   props: {
     solution: {
       type: String,
       default: ''
-    }
-  },
-  data: () => ({
-    alert: false
-  }),
-  methods: {
-    open () {
-      this.alert = true
-    },
-    close () {
-      this.alert = false
     }
   }
 }
