@@ -1,6 +1,6 @@
 <template>
-  <QDialog v-model="isOpen">
-    <QCard>
+  <QDialog :fullwidth="fullwidth" v-model="isOpen">
+    <QCard :style="cardStyle">
       <QCardSection>
         <slot name="title"></slot>
       </QCardSection>
@@ -27,11 +27,32 @@ export default {
   props: {
     'actions-align': {
       type: String
+    },
+    size: {
+      type: String,
+      default: 'small'
+    },
+    fullwidth: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
     isOpen: false
   }),
+  computed: {
+    cardStyle () {
+      if (this.size === 'small') {
+        return null
+      }
+
+      if (this.size === 'medium') {
+        return 'width: 700px; max-width: 80vw;'
+      }
+
+      return null
+    }
+  },
   methods: {
     open () {
       this.isOpen = true
