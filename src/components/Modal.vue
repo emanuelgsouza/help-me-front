@@ -1,5 +1,5 @@
 <template>
-  <QDialog :fullwidth="fullwidth" v-model="isOpen">
+  <QDialog :fullWidth="fullwidth" v-model="isOpen">
     <QCard :style="cardStyle">
       <QCardSection>
         <slot name="title"></slot>

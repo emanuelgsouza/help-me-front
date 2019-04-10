@@ -9,11 +9,23 @@
     <QCardSection class="row justify-between q-pa-xs">
       <SolutionModal ref="modal" :solution="suggestion" />
 
+      <EditProblemModal
+        v-if="hasProblem"
+        ref="editProblem"
+        :problem="problem" />
+
       <QChip square color="primary" text-color="white" icon="event">
         {{ createdAt }}
       </QChip>
 
       <div class="row items-center">
+        <QIcon
+          v-if="isCardFromUser"
+          class="q-mr-md lightbulb cursor-pointer"
+          name="fas fa-edit"
+          size="32px"
+          @click="openEditProblemModal" />
+
         <QIcon
           v-if="isCardFromUser"
           name="fas fa-user-alt"
@@ -36,15 +48,26 @@
 
 <script>
 import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
-import { get, isEmpty } from 'lodash'
-import SolutionModal from './solution'
-import injectUser from 'src/domains/User/mixins/inject-user'
+import { get, isEmpty, toNumber } from 'lodash'
 import moment from 'moment'
+
+import SolutionModal from './solution'
+import EditProblemModal from './edit'
+import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'ProblemCard',
   mixins: [ injectUser ],
-  components: { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon, SolutionModal },
+  components: {
+    QTooltip,
+    QCard,
+    QCardSection,
+    QSeparator,
+    QChip,
+    QIcon,
+    SolutionModal,
+    EditProblemModal
+  },
   props: {
     problem: {
       type: Object,
@@ -62,18 +85,24 @@ export default {
       return !isEmpty(this.suggestion)
     },
     createdAt () {
-      return moment(get(this.problem, 'created', '')).format('MM-DD-YYYY HH:mm:ss')
+      return moment(toNumber(get(this.problem, 'created'))).format('MM-DD-YYYY HH:mm:ss')
     },
     problemUserUid () {
       return get(this.problem, 'user_uid', '')
     },
     isCardFromUser () {
       return this.userUid === this.problemUserUid
+    },
+    hasProblem () {
+      return !isEmpty(this.problem)
     }
   },
   methods: {
     openSuggestionModal () {
       this.$refs.modal.open()
+    },
+    openEditProblemModal () {
+      this.$refs.editProblem.open()
     }
   }
 }
