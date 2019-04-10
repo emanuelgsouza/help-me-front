@@ -11,10 +11,15 @@
     <br />
 
     <CreateProblem @submit="onSubmit" />
+
+    <QInnerLoading :showing="loading">
+      <QSpinnerGears color="primary" size="64px" />
+    </QInnerLoading>
   </QPage>
 </template>
 
 <script>
+import { QInnerLoading, QSpinnerGears } from 'quasar'
 import CreateProblem from 'src/domains/Problems/components/Create'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 import { createProblem } from 'src/services/firebase/database'
@@ -22,9 +27,10 @@ import { createProblem } from 'src/services/firebase/database'
 export default {
   name: 'ProblemsCreatePage',
   mixins: [ injectUserMixin ],
-  components: { CreateProblem },
+  components: { CreateProblem, QInnerLoading, QSpinnerGears },
   data: () => ({
-    model: {}
+    model: {},
+    loading: false
   }),
   methods: {
     onSubmit (model) {
@@ -37,9 +43,11 @@ export default {
       }
 
       this.model = { ...model }
+      this.loading = true
 
       return createProblem(model, this.user)
         .then(() => {
+          this.loading = false
           this.$router.push('/dashboard')
 
           this.$q.notify({
@@ -49,6 +57,7 @@ export default {
           })
         })
         .catch(err => {
+          this.loading = false
           console.error(err)
 
           this.$q.notify({
