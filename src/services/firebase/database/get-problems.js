@@ -1,3 +1,4 @@
+import { isNil } from 'lodash'
 import database from './database'
 
 /**
@@ -7,7 +8,8 @@ import database from './database'
 const getProblems = () => {
   return new Promise((resolve, reject) => {
     database.ref('problems').on('value', data => {
-      resolve(Object.values(data.val()))
+      const val = data.val()
+      resolve(isNil(val) ? [] : Object.values(val))
     })
   })
 }
