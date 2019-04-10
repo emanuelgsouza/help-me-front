@@ -10,9 +10,9 @@ export default {
     injectUserInModel () {
       this.model = {
         ...this.model,
-        name: get(this.user, 'name', null),
-        email: get(this.user, 'email', null),
-        phone: get(this.user, 'phone', null)
+        name: get(this.user, 'name', ''),
+        email: get(this.user, 'email', ''),
+        phone: get(this.user, 'phone', '')
       }
     }
   }
