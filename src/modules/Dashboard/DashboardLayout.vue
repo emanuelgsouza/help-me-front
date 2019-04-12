@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh lpR lFf">
+  <q-layout view="lHr Lpr lfr">
 
     <q-header elevated class="bg-secondary text-white">
       <q-toolbar>
@@ -13,7 +13,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="left" side="left" bordered>
+    <QDrawer v-model="left" side="left" bordered>
       <QList v-for="(menuItem, index) in menuList" :key="index">
 
         <QItem clickable :to="menuItem.to" v-ripple>
@@ -28,7 +28,7 @@
         <q-separator v-if="menuItem.separator" />
 
       </QList>
-    </q-drawer>
+    </QDrawer>
 
     <q-page-container>
       <router-view />
@@ -75,6 +75,7 @@ export default {
   },
   data: () => ({
     left: false,
+    right: false,
     menuList: [
       {
         icon: 'inbox',
