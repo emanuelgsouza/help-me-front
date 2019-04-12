@@ -58,6 +58,7 @@ import {
   QSeparator
 } from 'quasar'
 import HeaderUserActions from './components/Header/UserActions'
+import { mapState } from 'vuex'
 
 export default {
   name: 'DashboardLayout',
@@ -92,7 +93,33 @@ export default {
         }
       }
     ]
-  })
+  }),
+  computed: {
+    ...mapState('auth', ['wasLogin', 'loadingUser'])
+  },
+  watch: {
+    loadingUser: 'updateLoadingStatus'
+  },
+  methods: {
+    updateLoadingStatus (val) {
+      if (val) {
+        return this.showLoadingToUser()
+      }
+
+      this.hideLoadingToUser()
+    },
+    showLoadingToUser () {
+      return this.$q.loading.show({
+        message: 'Carregando os dados do usuário'
+      })
+    },
+    hideLoadingToUser () {
+      return this.$q.loading.hide()
+    }
+  },
+  mounted () {
+    this.updateLoadingStatus(this.loadingUser)
+  }
 }
 </script>
 

@@ -18,7 +18,7 @@
         {{ createdAt }}
       </QChip>
 
-      <div class="row items-center">
+      <div class="row items-center q-ma-xs">
         <QIcon
           v-if="isCardFromUser"
           class="q-mr-md lightbulb cursor-pointer"

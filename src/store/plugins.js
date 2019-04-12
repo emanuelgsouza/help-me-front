@@ -14,7 +14,6 @@ const initializeApp = async store => {
   console.log('Get user information')
 
   const value = await getWasLogin()
-
   store.commit(`auth/${TYPES.SET_WAS_LOGIN}`, value)
 
   firebase.auth().onAuthStateChanged(async user => {
@@ -32,6 +31,7 @@ const initializeApp = async store => {
     const hasUser = await checkExistUser(_user.uid)
 
     await wasLogin(false)
+    store.commit(`auth/${TYPES.SET_WAS_LOGIN}`, false)
 
     if (hasUser) {
       console.log('Get problems by user')

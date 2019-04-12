@@ -16,12 +16,15 @@ export default {
     store.error_message = null
   },
   [ TYPES.SET_USER_LOADING ] (store) {
+    console.log('auth/setUserLoading')
     store.loadingUser = true
   },
   [ TYPES.CLEAR_USER_LOADING ] (store) {
+    console.log('auth/clearUserLoading')
     store.loadingUser = false
   },
   [ TYPES.SET_WAS_LOGIN ] (store, value) {
+    console.log('auth/setWasLogin: ' + value)
     store.wasLogin = value
   }
 }
