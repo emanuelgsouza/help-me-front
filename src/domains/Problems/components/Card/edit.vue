@@ -24,22 +24,34 @@
     </div>
 
     <div slot="actions">
-      <QBtn label="Confirmar" color="primary" />
-      <QBtn flat label="Cancelar" color="negative" @click="close" />
+      <QBtn
+        label="Confirmar"
+        color="primary"
+        :disable="isEqualData"
+        @click="onSave" />
+      <QBtn
+        flat
+        label="Cancelar"
+        color="negative"
+        @click="close" />
+
+      <AppLoading :loading="loading" />
     </div>
   </AppModal>
 </template>
 
 <script>
-import { get } from 'lodash'
+import { get, isEqual } from 'lodash'
 import { QForm, QInput } from 'quasar'
 import AppModal from 'src/components/Modal'
+import AppLoading from 'src/components/Loading'
 import modalMixin from 'src/support/mixins/modal'
+import { editProblem } from 'src/services/firebase/database'
 
 export default {
   name: 'EditProblemModal',
   mixins: [ modalMixin ],
-  components: { AppModal, QForm, QInput },
+  components: { AppModal, QForm, QInput, AppLoading },
   props: {
     problem: {
       type: Object,
@@ -47,15 +59,47 @@ export default {
     }
   },
   data: () => ({
+    loading: false,
     model: {
       description: null,
       suggestion: null
     }
   }),
+  computed: {
+    isEqualData () {
+      return isEqual(this.model, {
+        description: get(this.problem, 'description', ''),
+        suggestion: get(this.problem, 'suggestion', '')
+      })
+    }
+  },
   methods: {
     fill () {
       this.model.description = get(this.problem, 'description', '')
       this.model.suggestion = get(this.problem, 'suggestion', '')
+    },
+    onSave () {
+      this.loading = true
+      const { uid } = this.problem
+
+      return editProblem(uid, this.model)
+        .then(() => {
+          this.loading = false
+          this.$q.notify({
+            message: 'Problema atualizado com sucesso',
+            color: 'positive'
+          })
+
+          this.close()
+        })
+        .catch(err => {
+          this.loading = false
+          console.error(err.message)
+          this.$q.notify({
+            message: 'Houve algum problema na atualização do problema',
+            color: 'negative'
+          })
+        })
     }
   },
   mounted () {

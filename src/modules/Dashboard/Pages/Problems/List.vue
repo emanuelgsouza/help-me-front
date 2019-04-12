@@ -8,23 +8,20 @@
       </div>
     </div>
 
-    <QInnerLoading :showing="loading">
-      <QSpinnerGears color="primary" size="64px" />
-    </QInnerLoading>
+    <AppLoading :loading="loading" />
   </QPage>
 </template>
 
 <script>
 import ProblemCard from 'src/domains/Problems/components/Card'
 import getProblems from 'src/services/firebase/database/get-problems'
-import { QInnerLoading, QSpinnerGears } from 'quasar'
+import AppLoading from 'src/components/Loading'
 
 export default {
   name: 'ProblemsListPage',
   components: {
     ProblemCard,
-    QInnerLoading,
-    QSpinnerGears
+    AppLoading
   },
   data: () => ({
     problems: [],
