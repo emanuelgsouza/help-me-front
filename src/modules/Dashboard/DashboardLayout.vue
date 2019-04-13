@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHr Lpr lfr">
 
-    <q-header elevated class="bg-secondary text-white">
+    <q-header elevated class="app-header text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="left = !left" />
 
@@ -124,6 +124,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+@import '~quasar-variables'
 
+.app-header {
+  background: linear-gradient(145deg, $secondary 11%, $primary 75%);
+}
 </style>
