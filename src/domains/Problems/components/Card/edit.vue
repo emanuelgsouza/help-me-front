@@ -8,7 +8,7 @@
     </div>
 
     <div>
-      <QForm>
+      <QForm class="q-gutter-md">
         <QInput
           filled
           label="Descreva seu problema: "
