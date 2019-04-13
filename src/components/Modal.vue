@@ -1,5 +1,5 @@
 <template>
-  <QDialog :fullWidth="fullwidth" v-model="isOpen">
+  <QDialog :maximized="isMaximized" :fullWidth="fullwidth" v-model="isOpen">
     <QCard :style="cardStyle">
       <QCardSection>
         <slot name="title"></slot>
@@ -38,7 +38,8 @@ export default {
     }
   },
   data: () => ({
-    isOpen: false
+    isOpen: false,
+    isMaximized: false
   }),
   computed: {
     cardStyle () {
@@ -60,6 +61,9 @@ export default {
     close () {
       this.isOpen = false
     }
+  },
+  mounted () {
+    this.isMaximized = this.$q.platform.is.mobile || false
   }
 }
 </script>
