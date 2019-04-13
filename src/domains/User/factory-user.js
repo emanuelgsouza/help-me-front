@@ -13,7 +13,8 @@ const factoryUser = userFromGoogle => {
     email: _get('email'),
     phoneNumber: _get('phoneNumber'),
     photoURL: _get('photoURL'),
-    uid: _get('uid')
+    uid: _get('uid'),
+    is_admin: false
   }
 }
 

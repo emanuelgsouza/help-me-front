@@ -20,7 +20,7 @@
 
       <div class="row items-center q-ma-xs">
         <QIcon
-          v-if="isCardFromUser"
+          v-if="canEditProblem"
           class="q-mr-md lightbulb cursor-pointer"
           name="fas fa-edit"
           size="32px"
@@ -92,6 +92,9 @@ export default {
     },
     isCardFromUser () {
       return this.userUid === this.problemUserUid
+    },
+    canEditProblem () {
+      return this.isCardFromUser || this.isAdmin
     },
     hasProblem () {
       return !isEmpty(this.problem)
