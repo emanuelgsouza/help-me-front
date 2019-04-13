@@ -23,6 +23,9 @@
           <QItemSection>
             <QItemLabel> Sair </QItemLabel>
           </QItemSection>
+          <QItemSection avatar>
+            <QIcon name="fas fa-sign-out-alt" />
+          </QItemSection>
         </QItem>
       </QList>
 
@@ -36,7 +39,7 @@ import {
   QList,
   QItem,
   QItemSection,
-  // QIcon,
+  QIcon,
   QItemLabel
 } from 'quasar'
 import { loginWithGoogle, logout } from 'src/services/firebase/auth'
@@ -50,7 +53,7 @@ export default {
     QList,
     QItem,
     QItemSection,
-    // QIcon,
+    QIcon,
     QItemLabel
   },
   methods: {
