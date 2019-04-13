@@ -14,6 +14,10 @@
     </q-header>
 
     <QDrawer v-model="left" side="left" bordered>
+      <figure>
+        <img
+          src="https://portal.unigranrio.edu.br/hs-fs/hubfs/logo_azul-topo.png?width=243&name=logo_azul-topo.png" />
+      </figure>
       <QList v-for="(menuItem, index) in menuList" :key="index">
 
         <QItem clickable :to="menuItem.to" v-ripple>
@@ -77,6 +81,14 @@ export default {
     left: false,
     right: false,
     menuList: [
+      {
+        icon: 'home',
+        label: 'Home',
+        separator: true,
+        to: {
+          name: 'index'
+        }
+      },
       {
         icon: 'inbox',
         label: 'Problemas',

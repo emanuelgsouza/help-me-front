@@ -1,6 +1,8 @@
 <template>
   <header class="home_hero bg-primary q-py-md flex flex-center column">
-    <img src="http://www.unigranrio.com.br/_images/icon/logo_branca-rodape.png" alt="Unigranrio Logo">
+    <figure>
+      <img src="http://www.unigranrio.com.br/_images/icon/logo_branca-rodape.png" alt="Unigranrio Logo">
+    </figure>
 
     <p class="description q-my-lg q-pa-md text-h6 text-grey-1 text-center">
       O projeto Help-Me! vem para aproximar a comunidade, com seus problemas, da Universidade, com suas soluções. O objetivo é propor problemas para que os alunos dos cursos de tecnologia possam se engajar em solucioná-los, por meio da transformação de ideias em soluções. Venha conhecer nosso repositório de problemas com suas soluções!
