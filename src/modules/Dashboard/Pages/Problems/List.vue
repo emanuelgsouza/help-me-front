@@ -29,7 +29,7 @@ import ProblemCard from 'src/domains/Problems/components/Card'
 import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
-import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
+import { getFilterOptions, FILTER_OPTIONS } from 'src/domains/Problems/constants'
 
 export default {
   name: 'ProblemsListPage',
@@ -57,7 +57,8 @@ export default {
     }
   },
   watch: {
-    filterOption: 'loadProblems'
+    filterOption: 'loadProblems',
+    hasUser: 'fillFilter'
   },
   methods: {
     loadProblems () {
@@ -82,10 +83,16 @@ export default {
     finish (problems) {
       this.loading = false
       this.problems = [ ...problems ]
+    },
+    fillFilter (hasUser) {
+      this.filterOption = this.$options.data().filterOption
+      this.filterOptions = Object.values(getFilterOptions(hasUser))
     }
   },
   mounted () {
     this.loadProblems()
+
+    this.fillFilter(this.hasUser)
   }
 }
 </script>
