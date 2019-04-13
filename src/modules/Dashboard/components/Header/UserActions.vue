@@ -9,11 +9,13 @@
       v-if="!hasUser && !isUserLoading"
       flat
       label="Login"
+      icon-right="fas fa-sign-in-alt"
       @click="login" />
 
     <QBtnDropdown
       v-if="hasUser && !isUserLoading"
       flat
+      :icon="isAdmin ? 'fas fa-user-shield' : ''"
       :label="username">
 
       <QList>
@@ -38,10 +40,11 @@ import {
   QItemLabel
 } from 'quasar'
 import { loginWithGoogle, logout } from 'src/services/firebase/auth'
-import { mapGetters } from 'vuex'
+import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'HeaderUserActions',
+  mixins: [ injectUser ],
   components: {
     QBtnDropdown,
     QList,
@@ -49,9 +52,6 @@ export default {
     QItemSection,
     // QIcon,
     QItemLabel
-  },
-  computed: {
-    ...mapGetters('auth', [ 'hasUser', 'username', 'isUserLoading' ])
   },
   methods: {
     login () {
