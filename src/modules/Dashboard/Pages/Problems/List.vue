@@ -1,11 +1,11 @@
 <template>
   <QPage padding>
     <div class="row q-mb-md">
-      <div class="col-10 col-xs-12">
+      <div class="col-xs-12 col-sm-6 col-md-10">
         <p class="text-h5"> Conheça os problemas na nossa plataforma </p>
       </div>
 
-      <div class="col-2 col-xs-12">
+      <div class="col-xs-12 col-sm-6 col-md-2">
         <QSelect
           label="Filtro"
           v-model="filterOption"
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row q-col-gutter-sm">
-      <div class="col-4 col-md-4 col-xs-12" v-for="(problem, key) in problems" :key="key">
+      <div class="col-xs-12 col-sm-6 col-md-4" v-for="(problem, key) in problems" :key="key">
         <ProblemCard :problem="problem" />
       </div>
     </div>
