@@ -1,9 +1,5 @@
 import { firebase } from 'src/services/firebase'
-import {
-  checkExistUser,
-  setUser,
-  getProblemsByUser
-} from 'src/services/firebase/database'
+import { setUser } from 'src/services/firebase/database'
 import * as TYPES from './auth/mutation-types'
 import factoryUser from 'src/domains/User/factory-user'
 import { wasLogin, getWasLogin } from 'src/domains/User/support/localforage'
@@ -28,19 +24,8 @@ const initializeApp = async store => {
     const _user = factoryUser(user)
     store.commit(`auth/${TYPES.SET_USER}`, _user)
 
-    const hasUser = await checkExistUser(_user.uid)
-
     await wasLogin(false)
     store.commit(`auth/${TYPES.SET_WAS_LOGIN}`, false)
-
-    if (hasUser) {
-      console.log('Get problems by user')
-
-      return getProblemsByUser(_user.uid)
-        .then(data => {
-          console.log('Problems ...')
-        })
-    }
 
     await setUser(_user)
   })
