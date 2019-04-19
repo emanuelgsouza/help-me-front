@@ -3,14 +3,16 @@
     <QBtn
       v-if="isUserLoading"
       flat
-      label="Loading usuário" />
+      label="Loading usuário"
+    />
 
     <QBtn
       v-if="!hasUser && !isUserLoading"
-      flat
       label="Login"
-      icon-right="fas fa-sign-in-alt"
-      @click="login" />
+      color="negative"
+      icon-right="fab fa-google"
+      @click="login"
+    />
 
     <QBtnDropdown
       v-if="hasUser && !isUserLoading"
@@ -24,7 +26,8 @@
             <QItemLabel> Sair </QItemLabel>
           </QItemSection>
           <QItemSection avatar>
-            <QIcon name="fas fa-sign-out-alt" />
+            <QIcon name="fas fa-sign-out-alt"
+          />
           </QItemSection>
         </QItem>
       </QList>
