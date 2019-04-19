@@ -9,24 +9,36 @@
     </p>
 
     <div class="button-container">
-      <QBtn
-        class="full-width"
-        label="Help-Me!"
-        color="grey-1"
-        text-color="primary"
-        size="lg"
-        :to="{ 'name': 'dashboard.index' }" />
+      <QBtnGroup spread>
+        <QBtn
+          class="full-width"
+          label="Help-Me!"
+          color="orange"
+          size="lg"
+          :to="{ 'name': 'dashboard.problems.create' }"
+        />
+
+        <QBtn
+          class="full-width"
+          label="Problemas"
+          color="grey-1"
+          text-color="primary"
+          size="lg"
+          :to="{ 'name': 'dashboard.index' }"
+        />
+      </QBtnGroup>
     </div>
   </header>
 </template>
 
 <script>
-import { QBtn } from 'quasar'
+import { QBtn, QBtnGroup } from 'quasar'
 
 export default {
   name: 'HomeHeader',
   components: {
-    QBtn
+    QBtn,
+    QBtnGroup
   }
 }
 </script>
@@ -43,6 +55,6 @@ export default {
 
 .button-container {
   width: 100%;
-  max-width: 300px;
+  max-width: 600px;
 }
 </style>
