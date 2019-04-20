@@ -1,7 +1,19 @@
 <template>
   <QCard>
     <QCardSection>
-      <ProblemStatusChip :problem="problem" />
+      <div class="row items-center no-wrap">
+        <div class="col">
+          <ProblemStatusChip
+            :problem="problem"
+          />
+        </div>
+
+        <div class="col-auto">
+          <ProblemActions
+            @edit="openEditProblemModal"
+          />
+        </div>
+      </div>
     </QCardSection>
 
     <QCardSection>
@@ -23,13 +35,12 @@
       </QChip>
 
       <div class="row items-center q-ma-xs">
-        <QIcon
+        <!-- <QIcon
           v-if="canEditProblem"
           class="q-mr-md lightbulb cursor-pointer"
           name="fas fa-edit"
           size="32px"
-          @click="openEditProblemModal" />
-
+          @click="openEditProblemModal" /> -->
         <QIcon
           v-if="isCardFromUser"
           name="fas fa-user-alt"
@@ -55,6 +66,7 @@ import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
 import { get, isEmpty, toNumber } from 'lodash'
 import moment from 'moment'
 
+import ProblemActions from './actions'
 import ProblemStatusChip from './status'
 import SolutionModal from './solution'
 import EditProblemModal from './edit'
@@ -64,15 +76,16 @@ export default {
   name: 'ProblemCard',
   mixins: [ injectUser ],
   components: {
-    QTooltip,
     QCard,
-    QCardSection,
-    QSeparator,
     QChip,
     QIcon,
-    ProblemStatusChip,
+    QTooltip,
+    QSeparator,
+    QCardSection,
     SolutionModal,
-    EditProblemModal
+    ProblemActions,
+    EditProblemModal,
+    ProblemStatusChip
   },
   props: {
     problem: {
