@@ -13,7 +13,7 @@
       </q-toolbar>
     </q-header>
 
-    <QDrawer v-model="left" side="left" bordered>
+    <QDrawer behavior="mobile" v-model="left" side="left" bordered>
       <figure>
         <img
           src="https://portal.unigranrio.edu.br/hs-fs/hubfs/logo_azul-topo.png?width=243&name=logo_azul-topo.png" />
@@ -66,9 +66,10 @@ import {
   QIcon,
   QSeparator
 } from 'quasar'
-import HeaderUserActions from './components/Header/UserActions'
 import { mapState } from 'vuex'
+import HeaderUserActions from './components/Header/UserActions'
 import injectUser from 'src/domains/User/mixins/inject-user'
+import menuList from './menu'
 
 export default {
   name: 'DashboardLayout',
@@ -87,44 +88,7 @@ export default {
   data: () => ({
     left: false,
     right: false,
-    menuList: [
-      {
-        icon: 'home',
-        label: 'Home',
-        separator: true,
-        requireAdmin: false,
-        to: {
-          name: 'index'
-        }
-      },
-      {
-        icon: 'inbox',
-        label: 'Problemas',
-        separator: true,
-        requireAdmin: false,
-        to: {
-          name: 'dashboard.problems.list'
-        }
-      },
-      {
-        icon: 'inbox',
-        label: 'Problemas Recentemente Criados',
-        separator: true,
-        requireAdmin: true,
-        to: {
-          name: 'dashboard.problems.recently'
-        }
-      },
-      {
-        icon: 'add',
-        label: 'Criar Problema',
-        separator: true,
-        requireAdmin: false,
-        to: {
-          name: 'dashboard.problems.create'
-        }
-      }
-    ]
+    menuList
   }),
   computed: {
     ...mapState('auth', ['wasLogin', 'loadingUser'])
@@ -151,6 +115,10 @@ export default {
     filterItem (item) {
       if (item.requireAdmin) {
         return this.isAdmin
+      }
+
+      if (item.requireUser) {
+        return this.hasUser
       }
 
       return true

@@ -1,10 +1,14 @@
+import moment from 'moment'
+import { isNil } from 'lodash'
+import factoryUser from 'src/domains/User/factory-user'
 import database from './database'
 import checkExistUser from './check-exist-user'
-import moment from 'moment'
 
 const setUser = user => {
+  const _user = factoryUser(user)
+
   const created = moment().format('x')
-  user['created'] = created
+  _user['created'] = created
 
   return database
     .ref(`users/${user.uid}`)
@@ -12,11 +16,13 @@ const setUser = user => {
     .then(data => data.val())
 }
 
-export default (user) => {
-  return checkExistUser(user.uid)
-    .then(hasUser => {
-      if (!hasUser) {
-        return setUser(user)
+export default (userFromGoogle) => {
+  return checkExistUser(userFromGoogle.uid)
+    .then(_user => {
+      if (isNil(_user)) {
+        return setUser(_user)
       }
+
+      return _user
     })
 }

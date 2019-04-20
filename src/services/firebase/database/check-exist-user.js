@@ -1,4 +1,3 @@
-import { isNil } from 'lodash'
 import database from './database'
 
 export default (uidUser) => {
@@ -7,5 +6,5 @@ export default (uidUser) => {
     .child('users')
     .child(uidUser)
     .once('value')
-    .then(data => !isNil(data.val()))
+    .then(data => data.val())
 }

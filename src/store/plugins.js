@@ -5,7 +5,6 @@ import {
 } from 'src/services/firebase/database'
 import * as TYPES from './auth/mutation-types'
 import * as APPLICATION_TYPES from './application/mutation-types'
-import factoryUser from 'src/domains/User/factory-user'
 import { wasLogin, getWasLogin } from 'src/domains/User/support/localforage'
 
 const initializeApp = async store => {
@@ -29,13 +28,14 @@ const initializeApp = async store => {
       store.commit(`auth/${TYPES.CLEAR_USER}`)
       return
     }
-    const _user = factoryUser(user)
+    const _user = await setUser(user)
+
+    store.commit(`auth/${TYPES.CLEAR_USER}`)
+
     store.commit(`auth/${TYPES.SET_USER}`, _user)
 
     await wasLogin(false)
     store.commit(`auth/${TYPES.SET_WAS_LOGIN}`, false)
-
-    await setUser(_user)
   })
 }
 export default [ initializeApp ]

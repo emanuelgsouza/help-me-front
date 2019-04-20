@@ -19,6 +19,11 @@ export default [
         path: '/dashboard/problems/create',
         name: 'dashboard.problems.create',
         component: () => import('./Pages/Problems/Create.vue')
+      },
+      {
+        path: '/dashboard/user/settings',
+        name: 'dashboard.user.settings',
+        component: () => import('./Pages/User/Settings.vue')
       }
     ]
   }
