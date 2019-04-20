@@ -13,7 +13,8 @@ const getProblems = ({ filter, userUid, recently }) => {
         .ref('problems')
         .orderByChild('approved')
         .equalTo(false)
-        .on('value', loadValues(resolve))
+        .once('value')
+        .then(loadValues(resolve))
     })
   }
 
@@ -23,7 +24,8 @@ const getProblems = ({ filter, userUid, recently }) => {
         .ref('problems')
         .orderByChild('approved')
         .equalTo(true)
-        .on('value', loadValues(resolve))
+        .once('value')
+        .then(loadValues(resolve))
     })
   }
 
@@ -34,7 +36,8 @@ const getProblems = ({ filter, userUid, recently }) => {
         .ref('problems')
         .orderByChild('suggestion')
         .equalTo('')
-        .on('value', loadValues(resolve))
+        .once('value')
+        .then(loadValues(resolve))
     })
   }
 
@@ -43,7 +46,8 @@ const getProblems = ({ filter, userUid, recently }) => {
       .ref('problems')
       .orderByChild('user_uid')
       .equalTo(userUid)
-      .on('value', loadValues(resolve))
+      .once('value')
+      .then(loadValues(resolve))
   })
 }
 

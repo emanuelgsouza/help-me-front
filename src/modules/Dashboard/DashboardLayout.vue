@@ -21,6 +21,7 @@
       <QList v-for="(menuItem, index) in menuList" :key="index">
 
         <QItem
+          v-if="filterItem(menuItem)"
           clickable
           :to="menuItem.to"
           v-ripple
@@ -146,6 +147,13 @@ export default {
     },
     hideLoadingToUser () {
       return this.$q.loading.hide()
+    },
+    filterItem (item) {
+      if (item.requireAdmin) {
+        return this.isAdmin
+      }
+
+      return true
     }
   },
   mounted () {
