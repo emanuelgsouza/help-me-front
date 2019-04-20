@@ -7,10 +7,9 @@
 
       <div class="col-xs-12 col-sm-6 col-md-4 row gutter-xs">
         <!-- <div class="col-xs-12 col-sm-6 col-md-6">
-          <QSelect
+          <ProblemStatusSelect
             label="Filtre por um tipo"
-            v-model="problemStatusOption"
-            :options="problemsStatusesOptions" />
+            v-model="problemStatusOption" />
         </div> -->
 
         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -38,16 +37,17 @@ import ProblemCard from 'src/domains/Problems/components/Card'
 import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
-import injectApplication from 'src/domains/Application/mixins/inject-application'
 import { getFilterOptions, FILTER_OPTIONS } from 'src/domains/Problems/constants'
+import ProblemStatusSelect from 'src/domains/ProblemStatus/components/ProblemStatusSelect'
 
 export default {
   name: 'ProblemsListPage',
-  mixins: [ injectUserMixin, injectApplication ],
+  mixins: [ injectUserMixin ],
   components: {
     QSelect,
     AppLoading,
-    ProblemCard
+    ProblemCard,
+    ProblemStatusSelect
   },
   data: () => ({
     problems: [],
