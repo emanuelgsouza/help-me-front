@@ -1,6 +1,10 @@
 <template>
   <QCard>
     <QCardSection>
+      <ProblemStatusChip :problem="problem" />
+    </QCardSection>
+
+    <QCardSection>
       <p class="text-body1 text-italic q-my-none"> "{{ description }}" </p>
     </QCardSection>
 
@@ -51,6 +55,7 @@ import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
 import { get, isEmpty, toNumber } from 'lodash'
 import moment from 'moment'
 
+import ProblemStatusChip from './status'
 import SolutionModal from './solution'
 import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
@@ -65,6 +70,7 @@ export default {
     QSeparator,
     QChip,
     QIcon,
+    ProblemStatusChip,
     SolutionModal,
     EditProblemModal
   },

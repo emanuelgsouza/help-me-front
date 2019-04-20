@@ -21,3 +21,12 @@ export const PROBLEM_STATUS = {
     value: 'APPRECIATED'
   }
 }
+
+/**
+ * @type {Object}
+ */
+export const STATUS_COLOR = {
+  PENDING_APPROVE: 'warning',
+  PENDING: 'orange',
+  APPRECIATED: 'positive'
+}
