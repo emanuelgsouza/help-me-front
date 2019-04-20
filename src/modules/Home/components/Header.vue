@@ -56,5 +56,6 @@ export default {
 .button-container {
   width: 100%;
   max-width: 600px;
+  padding: 10px;
 }
 </style>
