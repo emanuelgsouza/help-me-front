@@ -20,7 +20,11 @@
       </figure>
       <QList v-for="(menuItem, index) in menuList" :key="index">
 
-        <QItem clickable :to="menuItem.to" v-ripple>
+        <QItem
+          clickable
+          :to="menuItem.to"
+          v-ripple
+        >
           <QItemSection avatar>
             <QIcon :name="menuItem.icon" />
           </QItemSection>
@@ -63,9 +67,11 @@ import {
 } from 'quasar'
 import HeaderUserActions from './components/Header/UserActions'
 import { mapState } from 'vuex'
+import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'DashboardLayout',
+  mixins: [ injectUser ],
   components: {
     QFab,
     QFabAction,
@@ -85,6 +91,7 @@ export default {
         icon: 'home',
         label: 'Home',
         separator: true,
+        requireAdmin: false,
         to: {
           name: 'index'
         }
@@ -93,14 +100,25 @@ export default {
         icon: 'inbox',
         label: 'Problemas',
         separator: true,
+        requireAdmin: false,
         to: {
           name: 'dashboard.problems.list'
+        }
+      },
+      {
+        icon: 'inbox',
+        label: 'Problemas Recentemente Criados',
+        separator: true,
+        requireAdmin: true,
+        to: {
+          name: 'dashboard.problems.recently'
         }
       },
       {
         icon: 'add',
         label: 'Criar Problema',
         separator: true,
+        requireAdmin: false,
         to: {
           name: 'dashboard.problems.create'
         }

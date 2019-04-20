@@ -1,15 +1,6 @@
-import { isNil } from 'lodash'
 import database from './database'
 import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
-
-/**
- * @method loadValues
- * @param {Function} resolve Promise.resolve function
- */
-const loadValues = resolve => data => {
-  const val = data.val()
-  resolve(isNil(val) ? [] : Object.values(val))
-}
+import { loadValues } from './helpers'
 
 /**
  * @method getProblems

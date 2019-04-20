@@ -1,6 +1,10 @@
 import { firebase } from 'src/services/firebase'
-import { setUser } from 'src/services/firebase/database'
+import {
+  setUser,
+  getProblemsStatuses
+} from 'src/services/firebase/database'
 import * as TYPES from './auth/mutation-types'
+import * as APPLICATION_TYPES from './application/mutation-types'
 import factoryUser from 'src/domains/User/factory-user'
 import { wasLogin, getWasLogin } from 'src/domains/User/support/localforage'
 
@@ -11,6 +15,10 @@ const initializeApp = async store => {
 
   const value = await getWasLogin()
   store.commit(`auth/${TYPES.SET_WAS_LOGIN}`, value)
+
+  console.log('Get problem statuses')
+  const status = await getProblemsStatuses()
+  store.commit(`application/${APPLICATION_TYPES.SET_STATUSES}`, status)
 
   firebase.auth().onAuthStateChanged(async user => {
     store.commit(`auth/${TYPES.CLEAR_USER_LOADING}`)
