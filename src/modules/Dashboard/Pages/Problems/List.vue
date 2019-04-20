@@ -5,7 +5,7 @@
         <p class="text-h5"> {{ title }} </p>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 row gutter-xs">
+      <div class="col-xs-12 col-sm-6 col-md-4 row gutter-xs justify-end">
         <!-- <div class="col-xs-12 col-sm-6 col-md-6">
           <ProblemStatusSelect
             label="Filtre por um tipo"

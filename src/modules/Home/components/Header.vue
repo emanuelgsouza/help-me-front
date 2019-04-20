@@ -1,5 +1,7 @@
 <template>
-  <header class="home_hero bg-primary q-py-md flex flex-center column">
+  <header
+    class="home_hero bg-primary q-py-md flex flex-center column"
+  >
     <figure>
       <img src="http://www.unigranrio.com.br/_images/icon/logo_branca-rodape.png" alt="Unigranrio Logo">
     </figure>

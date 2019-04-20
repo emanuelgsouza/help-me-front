@@ -10,6 +10,8 @@
 
         <div class="col-auto">
           <ProblemActions
+            :problem="problem"
+            v-if="showActions"
             @edit="openEditProblemModal"
             @editStatus="openEditProblemStatusModal"
           />
@@ -23,7 +25,7 @@
 
     <QSeparator spaced />
 
-    <QCardSection class="row justify-between q-pa-xs">
+    <QCardSection class="row justify-between">
       <SolutionModal ref="modal" :solution="suggestion" />
 
       <EditProblemStatus
@@ -126,6 +128,9 @@ export default {
     },
     canEditProblem () {
       return this.isCardFromUser || this.isAdmin
+    },
+    showActions () {
+      return this.canEditProblem
     },
     hasProblem () {
       return !isEmpty(this.problem)
