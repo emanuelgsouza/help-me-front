@@ -11,6 +11,7 @@
         <div class="col-auto">
           <ProblemActions
             @edit="openEditProblemModal"
+            @editStatus="openEditProblemStatusModal"
           />
         </div>
       </div>
@@ -25,10 +26,19 @@
     <QCardSection class="row justify-between q-pa-xs">
       <SolutionModal ref="modal" :solution="suggestion" />
 
+      <EditProblemStatus
+        v-if="hasProblem"
+        ref="editProblemStatus"
+        :problem="problem"
+        @close="onClose"
+      />
+
       <EditProblemModal
         v-if="hasProblem"
         ref="editProblem"
-        :problem="problem" />
+        :problem="problem"
+        @close="onClose"
+      />
 
       <QChip square color="primary" text-color="white" icon="event">
         {{ createdAt }}
@@ -71,6 +81,7 @@ import ProblemStatusChip from './status'
 import SolutionModal from './solution'
 import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
+import EditProblemStatus from './edit-status'
 
 export default {
   name: 'ProblemCard',
@@ -85,6 +96,7 @@ export default {
     SolutionModal,
     ProblemActions,
     EditProblemModal,
+    EditProblemStatus,
     ProblemStatusChip
   },
   props: {
@@ -125,6 +137,12 @@ export default {
     },
     openEditProblemModal () {
       this.$refs.editProblem.open()
+    },
+    openEditProblemStatusModal () {
+      this.$refs.editProblemStatus.open()
+    },
+    onClose () {
+      this.$emit('refetch')
     }
   }
 }

@@ -12,6 +12,8 @@ export default {
 <template>
   <QSelect
     :options="problemsStatusesOptions"
+    emit-value
+    map-option
     v-bind="$attrs"
     v-on="$listeners"
   />

@@ -23,7 +23,10 @@
 
     <div class="row q-col-gutter-sm">
       <div class="col-xs-12 col-sm-6 col-md-4" v-for="(problem, key) in problems" :key="key">
-        <ProblemCard :problem="problem" />
+        <ProblemCard
+          :problem="problem"
+          @refetch="loadProblems"
+        />
       </div>
     </div>
 

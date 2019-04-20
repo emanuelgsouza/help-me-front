@@ -11,7 +11,6 @@ export default {
       return this.problemsStatuses.map(status => {
         return {
           label: status.label,
-          name: status.name,
           value: status.value
         }
       })
