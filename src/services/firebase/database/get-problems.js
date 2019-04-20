@@ -6,7 +6,17 @@ import { loadValues } from './helpers'
  * @method getProblems
  * @return {Promise<Array<Object>>}
  */
-const getProblems = ({ filter, userUid }) => {
+const getProblems = ({ filter, userUid, recently }) => {
+  if (recently) {
+    return new Promise((resolve, reject) => {
+      database
+        .ref('problems')
+        .orderByChild('approved')
+        .equalTo(false)
+        .on('value', loadValues(resolve))
+    })
+  }
+
   if (filter === FILTER_OPTIONS.NOTHING) {
     return new Promise((resolve, reject) => {
       database

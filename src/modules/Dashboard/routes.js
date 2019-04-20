@@ -11,6 +11,11 @@ export default [
         component: () => import('./Pages/Problems/List.vue')
       },
       {
+        path: '/dashboard/problems/recently',
+        name: 'dashboard.problems.recently',
+        component: () => import('./Pages/Problems/List.vue')
+      },
+      {
         path: '/dashboard/problems/create',
         name: 'dashboard.problems.create',
         component: () => import('./Pages/Problems/Create.vue')

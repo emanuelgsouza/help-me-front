@@ -2,7 +2,7 @@
   <QPage padding>
     <div class="row q-mb-md">
       <div class="col-xs-12 col-sm-6 col-md-8">
-        <p class="text-h5"> Conheça os problemas na nossa plataforma </p>
+        <p class="text-h5"> {{ title }} </p>
       </div>
 
       <div class="col-xs-12 col-sm-6 col-md-4 row gutter-xs">
@@ -38,7 +38,7 @@ import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 import { getFilterOptions, FILTER_OPTIONS } from 'src/domains/Problems/constants'
-import ProblemStatusSelect from 'src/domains/ProblemStatus/components/ProblemStatusSelect'
+// import ProblemStatusSelect from 'src/domains/ProblemStatus/components/ProblemStatusSelect'
 
 export default {
   name: 'ProblemsListPage',
@@ -46,8 +46,8 @@ export default {
   components: {
     QSelect,
     AppLoading,
-    ProblemCard,
-    ProblemStatusSelect
+    ProblemCard
+    // ProblemStatusSelect
   },
   data: () => ({
     problems: [],
@@ -65,15 +65,31 @@ export default {
     },
     myProblems () {
       return this.filterOption === FILTER_OPTIONS.MY_PROBLEMS
+    },
+    inRecentlyRoute () {
+      return this.$route.name === 'dashboard.problems.recently'
+    },
+    title () {
+      if (this.inRecentlyRoute) {
+        return 'Veja os problemas recentemente criados'
+      }
+
+      return 'Conheça os problemas na nossa plataforma'
     }
   },
   watch: {
     filterOption: 'loadProblems',
-    hasUser: 'fillFilter'
+    hasUser: 'fillFilter',
+    inRecentlyRoute: 'loadProblems'
   },
   methods: {
     loadProblems () {
       this.loading = true
+
+      if (this.inRecentlyRoute) {
+        const options = { recently: true }
+        return getProblems(options).then(this.finish)
+      }
 
       if (this.isNothing) {
         const options = { filter: FILTER_OPTIONS.NOTHING }
