@@ -1,13 +1,11 @@
 import database from './database'
 import { returnKey } from './helpers'
-import moment from 'moment'
+import { factoryProblem } from 'src/domains/Problems/support'
 
 const createProblem = async (problem, user) => {
+  const model = factoryProblem(user, problem)
   const key = returnKey('problems')
-  const created = moment().format('x')
-  problem['user_uid'] = user.uid
-  problem['created'] = created
-  problem['uid'] = key
+  model['uid'] = key
 
   const problemRegistered = database.ref('problems').child(key).set(problem)
 

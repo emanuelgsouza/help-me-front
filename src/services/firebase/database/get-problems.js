@@ -20,10 +20,13 @@ const getProblems = ({ filter, userUid }) => {
     return new Promise((resolve, reject) => {
       database
         .ref('problems')
+        .orderByChild('approved')
+        .equalTo(true)
         .on('value', loadValues(resolve))
     })
   }
 
+  // TODO: Não vai funcionar, pensando na possibilidade usar o Firestore
   if (filter === FILTER_OPTIONS.WITHOUT_SOLUTION) {
     return new Promise((resolve, reject) => {
       database
