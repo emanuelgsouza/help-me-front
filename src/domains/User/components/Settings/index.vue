@@ -1,5 +1,13 @@
 <template>
   <div class="settings-user">
+    <div v-if="isFirstLogin" class="bg-warning q-pa-md">
+      <p> Verificamos que este é o seu primeiro login, gostaríamos de pedir que insira algumas informações para que possamos conhecê-lo(a) melhor </p>
+
+      <p class="no-margin"> Caso não atualize algumas dessas informações, serás redirecionado para essa página a cada vez que entrar em nosso sistema </p>
+    </div>
+
+    <br />
+
     <GeneralInformations
       :model="userData"
       @input="updateUser"
@@ -102,6 +110,9 @@ export default {
     },
     hasCompany () {
       return get(this.userData, 'is_employer', false)
+    },
+    isFirstLogin () {
+      return get(this.user, 'is_first_login', false)
     }
   },
   watch: {
@@ -145,6 +156,10 @@ export default {
     },
     fillUser (user) {
       this.userData = { ...user || {} }
+
+      if (user.is_first_login) {
+        this.userData.is_first_login = false
+      }
     }
   },
   mounted () {
