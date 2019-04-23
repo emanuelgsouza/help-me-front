@@ -1,17 +1,26 @@
 <template>
-  <QForm>
-    <QInput
-      label="Nome"
-      :value="model.name"
-      @input="value => onInput('name', value)"
-    />
+  <WrapperCard
+    title="Informações Gerais"
+  >
+    <FormRow>
+      <FormCol>
+        <WrapperInput
+          label="Nome"
+          required
+          :value="model.name"
+          @input="value => onInput('name', value)"
+        />
+      </FormCol>
 
-    <QInput
-      label="Email"
-      :value="model.email"
-      disable
-    />
-  </QForm>
+      <FormCol>
+        <WrapperInput
+          label="Email"
+          :value="model.email"
+          disable
+        />
+      </FormCol>
+    </FormRow>
+  </WrapperCard>
 </template>
 
 <script>

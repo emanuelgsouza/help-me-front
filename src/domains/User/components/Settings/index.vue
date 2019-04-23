@@ -5,6 +5,41 @@
       @input="updateUser"
     />
 
+    <div class="q-my-md">
+      <label class="no-margin"> Você é funcionário da Unigranrio? </label>
+      <QOptionGroup
+        inline
+        :value="userData.university_link"
+        :options="options"
+        @input="val => updateUser({ path: 'university_link', value: val })"
+      />
+    </div>
+
+    <StudentInformations
+      v-if="isStudentInformations"
+      :model="userData"
+      @input="updateUser"
+    />
+
+    <NotEmployeeInformations
+      v-if="isNotEmployeeInformations"
+      :model="userData"
+      @input="updateUser"
+    />
+
+    <CompanyInformations
+      v-if="hasCompany"
+      class="q-mt-md"
+      :model="userData"
+      @input="updateUser"
+    />
+
+    <EmployeeInformations
+      v-if="isEmployeeInformations"
+      :model="userData"
+      @input="updateUser"
+    />
+
     <br />
 
     <QBtn
@@ -17,44 +52,61 @@
 </template>
 
 <script>
-// import { QOptionGroup } from 'quasar'
-import { set, isEqual, pick } from 'lodash'
+import { QOptionGroup } from 'quasar'
+import { set, isEqual, omit, get } from 'lodash'
 import ComponentsMixin from './components'
 import injectUser from '../../mixins/inject-user'
 import { editUser } from 'src/services/firebase/database'
 
-const PROPS_TO_ANALYSE = [
-  'name'
+const PROPS_TO_OMIT = [
+  'uid',
+  'is_admin',
+  'created',
+  'photoURL'
 ]
 
 export default {
   name: 'UserSettingsForm',
   mixins: [ injectUser, ComponentsMixin ],
-  // components: { QOptionGroup },
+  components: { QOptionGroup },
   data: () => ({
     userData: {},
-    university_link: 'student',
     options: [
       {
-        label: 'Estudante da Unigranrio',
+        label: 'Sou estudante',
         value: 'student'
       },
       {
-        label: 'Estudante',
-        value: 'student'
+        label: 'Não',
+        value: 'not_employee'
       },
       {
-        label: 'Estudante',
-        value: 'student'
+        label: 'Sim',
+        value: 'employee'
       }
     ]
   }),
   computed: {
     disableSave () {
       return isEqual(
-        pick(this.userData, PROPS_TO_ANALYSE),
-        pick(this.user, PROPS_TO_ANALYSE)
+        omit(this.userData, PROPS_TO_OMIT),
+        omit(this.user, PROPS_TO_OMIT)
       )
+    },
+    universityLink () {
+      return get(this.userData, 'university_link', '')
+    },
+    isStudentInformations () {
+      return this.universityLink === 'student'
+    },
+    isNotEmployeeInformations () {
+      return this.universityLink === 'not_employee'
+    },
+    isEmployeeInformations () {
+      return this.universityLink === 'employee'
+    },
+    hasCompany () {
+      return get(this.userData, 'is_employer', false)
     }
   },
   watch: {

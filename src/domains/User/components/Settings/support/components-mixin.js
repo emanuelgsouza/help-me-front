@@ -1,7 +1,15 @@
-import { QInput, QForm } from 'quasar'
+import { QInput, QForm, QOptionGroup } from 'quasar'
+import WRAPPERS from 'src/components/Wrappers'
+import FormGrid from 'src/components/Grid'
 
 export default {
-  components: { QInput, QForm },
+  components: {
+    QInput,
+    QForm,
+    QOptionGroup,
+    ...FormGrid,
+    ...WRAPPERS
+  },
   props: {
     model: {
       type: Object,
