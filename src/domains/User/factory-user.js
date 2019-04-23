@@ -26,7 +26,8 @@ const factoryUser = userFromGoogle => {
     city: '',
     company_activity: '',
     company_name: '',
-    company_phone: ''
+    company_phone: '',
+    is_first_login: true
   }
 }
 
