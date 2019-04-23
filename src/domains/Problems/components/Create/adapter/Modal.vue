@@ -2,10 +2,17 @@
   <AppModal
     ref="modal"
     size="medium"
-    actions-align="right"
-    @show="onOpen">
+    actions-align="right">
     <div slot="title">
       <div class="text-h6"> Cadastrar problema </div>
+    </div>
+
+    <div class="bg-orange text-white q-pa-md rounded-borders" v-if="!hasUser">
+      <p class="q-ma-none text-h6 text-center">
+        É necessário estar logado para poder cadastrar um problema
+      </p>
+
+      <LoginButton style="display: block; margin: 0 auto" />
     </div>
 
     <CreateProblem @submit="onSubmit" />
@@ -17,12 +24,13 @@ import AppModal from 'src/components/Modal'
 import modalMixin from 'src/support/mixins/modal'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 import { createProblem } from 'src/services/firebase/database'
+import LoginButton from 'src/domains/User/components/LoginButton'
 import CreateProblem from '../Form'
 
 export default {
   name: 'ProblemsCreatePage',
   mixins: [ modalMixin, injectUserMixin ],
-  components: { AppModal, CreateProblem },
+  components: { AppModal, CreateProblem, LoginButton },
   data: () => ({
     model: {}
   }),
@@ -54,20 +62,6 @@ export default {
             icon: 'thumb_down'
           })
         })
-    },
-    checkUser () {
-      if (!this.hasUser) {
-        this.$q.dialog({
-          title: 'Aviso',
-          message: 'Só é possível cadastrar problemas usuário logados'
-        })
-          .onOk(() => {
-            this.close()
-          })
-      }
-    },
-    onOpen () {
-      this.checkUser()
     }
   }
 }

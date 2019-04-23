@@ -25,7 +25,7 @@
         label="Cadastrar"
         type="submit"
         color="primary"
-        :disable="disableInput" />
+        :disable="disableSaveBtn" />
       <QBtn
         label="Limpar"
         type="reset"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { trim } from 'lodash'
+import { trim, isEmpty } from 'lodash'
 import { QForm, QInput } from 'quasar'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 
@@ -47,9 +47,6 @@ export default {
   mixins: [ injectUserMixin ],
   data: () => ({
     model: {
-      name: '',
-      email: '',
-      phone: '',
       description: '',
       suggestion: ''
     }
@@ -61,6 +58,12 @@ export default {
   computed: {
     disableInput () {
       return !this.hasUser
+    },
+    disableSaveBtn () {
+      return !this.hasProblem
+    },
+    hasProblem () {
+      return !isEmpty(this.model.description)
     }
   },
   watch: {
