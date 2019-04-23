@@ -44,12 +44,14 @@
     <q-page-container>
       <router-view />
 
+      <CreateProblemModal ref="createProblem" />
+
       <QPageSticky position="bottom-right" :offset="[18, 18]">
         <QFab color="negative" icon="keyboard_arrow_up" direction="up">
           <QFabAction
             color="primary"
             icon="add"
-            :to="{ 'name': 'dashboard.problems.create' }" />
+            @click="$refs.createProblem.open()" />
         </QFab>
       </QPageSticky>
     </q-page-container>
@@ -73,6 +75,7 @@ import HeaderUserActions from './components/Header/UserActions'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import menuList from './menu'
 import AppVersion from 'src/components/Version'
+import CreateProblemModal from 'src/domains/Problems/components/Create/adapter/Modal'
 
 export default {
   name: 'DashboardLayout',
@@ -87,7 +90,8 @@ export default {
     QIcon,
     QSeparator,
     AppVersion,
-    HeaderUserActions
+    HeaderUserActions,
+    CreateProblemModal
   },
   data: () => ({
     left: false,

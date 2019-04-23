@@ -45,7 +45,7 @@ import {
   QIcon,
   QItemLabel
 } from 'quasar'
-import { loginWithGoogle, logout } from 'src/services/firebase/auth'
+import { loginWithGoogle } from 'src/services/firebase/auth'
 import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
@@ -64,7 +64,18 @@ export default {
       loginWithGoogle()
     },
     logout () {
-      logout()
+      this.$q.loading.show({
+        message: 'Fazendo logout na aplicação'
+      })
+
+      const timeout = setTimeout(() => {
+        this.logoutUser()
+          .then(() => {
+            this.$q.loading.hide()
+
+            clearTimeout(timeout)
+          })
+      }, 2000)
     }
   }
 }

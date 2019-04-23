@@ -1,5 +1,10 @@
 <template>
-  <QDialog :maximized="isMaximized" :fullWidth="fullwidth" v-model="isOpen">
+  <QDialog
+    :maximized="isMaximized"
+    :fullWidth="fullwidth"
+    v-model="isOpen"
+    v-on="$listeners"
+  >
     <QCard :style="cardStyle">
       <QCardSection>
         <slot name="title"></slot>

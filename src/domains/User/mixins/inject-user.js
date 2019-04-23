@@ -1,4 +1,4 @@
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import { get } from 'lodash'
 
 const GETTERS = [
@@ -17,6 +17,7 @@ export default {
     ...mapState('auth', STATE)
   },
   methods: {
+    ...mapActions('auth', ['logoutUser']),
     injectUserInModel () {
       this.model = {
         ...this.model,

@@ -5,35 +5,6 @@
     class="q-gutter-y-md">
     <QInput
       filled
-      label="Qual o seu nome?"
-      v-model="model.name"
-      disable
-      :rules="[
-        val => val.length > 0 || 'Preencha seu nome'
-      ]" />
-
-    <QInput
-      filled
-      label="Qual o seu email?"
-      v-model="model.email"
-      disable
-      :rules="[
-        val => val.length > 0 || 'Preencha seu e-mail'
-      ]" />
-
-    <QInput
-      filled
-      label="Qual o seu número de telefone?"
-      mask="(##) ##### - ####"
-      hint="Mask: (##) ##### - ####"
-      v-model="model.phone"
-      :disable="disableInput"
-      :rules="[
-        val => val.length > 0 || 'Preencha seu número de telefone'
-      ]" />
-
-    <QInput
-      filled
       label="Descreva seu problema: "
       type="textarea"
       v-model="model.description"

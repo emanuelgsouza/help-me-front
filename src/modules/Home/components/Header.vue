@@ -17,7 +17,7 @@
           label="Help-Me!"
           color="orange"
           size="lg"
-          :to="{ 'name': 'dashboard.problems.create' }"
+          @click="openCreateProblem"
         />
 
         <QBtn
@@ -31,6 +31,8 @@
       </QBtnGroup>
     </div>
 
+    <CreateProblemModal ref="createProblem" />
+
     <AppVersion />
   </header>
 </template>
@@ -38,13 +40,20 @@
 <script>
 import { QBtn, QBtnGroup } from 'quasar'
 import AppVersion from 'src/components/Version'
+import CreateProblemModal from 'src/domains/Problems/components/Create/adapter/Modal'
 
 export default {
   name: 'HomeHeader',
   components: {
     QBtn,
     QBtnGroup,
-    AppVersion
+    AppVersion,
+    CreateProblemModal
+  },
+  methods: {
+    openCreateProblem () {
+      this.$refs.createProblem.open()
+    }
   }
 }
 </script>
