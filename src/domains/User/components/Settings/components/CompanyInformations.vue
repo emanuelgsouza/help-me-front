@@ -7,7 +7,7 @@
         <WrapperInput
           label="Nome da empresa"
           :value="model.company_name"
-          @input="value => onInput('city', value)"
+          @input="value => onInput('company_name', value)"
         />
       </FormCol>
 
