@@ -70,7 +70,6 @@ import {
   QIcon,
   QSeparator
 } from 'quasar'
-import { mapState } from 'vuex'
 import HeaderUserActions from './components/Header/UserActions'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import menuList from './menu'
@@ -98,28 +97,7 @@ export default {
     right: false,
     menuList
   }),
-  computed: {
-    ...mapState('auth', ['wasLogin', 'loadingUser'])
-  },
-  watch: {
-    loadingUser: 'updateLoadingStatus'
-  },
   methods: {
-    updateLoadingStatus (val) {
-      if (val) {
-        return this.showLoadingToUser()
-      }
-
-      this.hideLoadingToUser()
-    },
-    showLoadingToUser () {
-      return this.$q.loading.show({
-        message: 'Carregando os dados do usuário'
-      })
-    },
-    hideLoadingToUser () {
-      return this.$q.loading.hide()
-    },
     filterItem (item) {
       if (item.requireAdmin) {
         return this.isAdmin
@@ -131,9 +109,6 @@ export default {
 
       return true
     }
-  },
-  mounted () {
-    this.updateLoadingStatus(this.loadingUser)
   }
 }
 </script>

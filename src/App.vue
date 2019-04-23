@@ -5,14 +5,18 @@
 </template>
 
 <script>
-import { Dialog } from 'quasar'
+import { mapState } from 'vuex'
 import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'App',
   mixins: [ injectUser ],
   watch: {
-    user: 'checkUserInformation'
+    user: 'checkUserInformation',
+    loadingUser: 'updateLoadingStatus'
+  },
+  computed: {
+    ...mapState('auth', ['wasLogin', 'loadingUser'])
   },
   methods: {
     checkUserInformation (user) {
@@ -26,20 +30,38 @@ export default {
           name: 'dashboard.user.settings'
         })
       }
+    },
+    updateLoadingStatus (val) {
+      if (val) {
+        return this.showLoadingToUser()
+      }
+
+      this.hideLoadingToUser()
+    },
+    showLoadingToUser () {
+      return this.$q.loading.show({
+        message: 'Carregando os dados do usuário'
+      })
+    },
+    hideLoadingToUser () {
+      return this.$q.loading.hide()
     }
+  },
+  mounted () {
+    this.updateLoadingStatus(this.loadingUser)
   },
   created () {
     document.addEventListener('sw:update', () => {
       // @TODO translate
       const reload = () => document.location.reload(true)
-      Dialog.create({
+      this.$q.dialog({
         title: 'Update',
         message: 'Há uma atualização disponível, atualize sua página para carregá-la',
         position: 'top',
         cancel: true
       })
-        .then(reload)
-        .catch(_ => {
+        .onOk(reload)
+        .onCancel(_ => {
           console.log('Evento cancelado. Atualização sairá no próximo refresh de página')
         })
     })
