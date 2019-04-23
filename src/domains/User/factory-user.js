@@ -14,7 +14,19 @@ const factoryUser = userFromGoogle => {
     phoneNumber: _get('phoneNumber'),
     photoURL: _get('photoURL'),
     uid: _get('uid'),
-    is_admin: false
+    is_admin: false,
+    phone: '',
+    is_employer: '',
+    professional: '',
+    registration: '',
+    university_link: 'student',
+    is_course_coordinator: false,
+    employee_observations: '',
+    employee_register: '',
+    city: '',
+    company_activity: '',
+    company_name: '',
+    company_phone: ''
   }
 }
 
