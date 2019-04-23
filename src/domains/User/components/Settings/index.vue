@@ -54,16 +54,11 @@
 <script>
 import { QOptionGroup } from 'quasar'
 import { set, isEqual, omit, get } from 'lodash'
+import { mapActions } from 'vuex'
 import ComponentsMixin from './components'
 import injectUser from '../../mixins/inject-user'
-import { editUser } from 'src/services/firebase/database'
-
-const PROPS_TO_OMIT = [
-  'uid',
-  'is_admin',
-  'created',
-  'photoURL'
-]
+import editUser from '../../actions/edit'
+import { PROPS_TO_OMIT, UNIVERSITY_LINKS } from '../../support/constants'
 
 export default {
   name: 'UserSettingsForm',
@@ -74,15 +69,15 @@ export default {
     options: [
       {
         label: 'Sou estudante',
-        value: 'student'
+        value: UNIVERSITY_LINKS.STUDENT
       },
       {
         label: 'Não',
-        value: 'not_employee'
+        value: UNIVERSITY_LINKS.NOT_EMPLOYEE
       },
       {
         label: 'Sim',
-        value: 'employee'
+        value: UNIVERSITY_LINKS.EMPLOYEE
       }
     ]
   }),
@@ -113,6 +108,7 @@ export default {
     user: 'fillUser'
   },
   methods: {
+    ...mapActions('auth', ['loadUser']),
     updateUser ({ path, value }) {
       set(this.userData, path, value)
     },
@@ -123,7 +119,7 @@ export default {
 
       const { uid } = this.user
 
-      return editUser(uid, this.userData)
+      return editUser(uid, this.user, this.userData)
         .then(() => {
           this.$q.notify({
             message: 'Dados atualizados',
@@ -131,7 +127,9 @@ export default {
           })
 
           this.$q.loading.hide()
-
+          return this.loadUser(uid)
+        })
+        .then(() => {
           this.$router.push({
             name: 'dashboard.problems.list'
           })

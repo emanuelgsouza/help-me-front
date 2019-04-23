@@ -1,8 +1,8 @@
 import database from './database'
 
-const editUser = (problemUid, model) => {
+const editUser = (userUid, model) => {
   return database
-    .ref(`/users/${problemUid}`)
+    .ref(`/users/${userUid}`)
     .update(model)
 }
 

@@ -20,8 +20,6 @@ const initializeApp = async store => {
   store.commit(`application/${APPLICATION_TYPES.SET_STATUSES}`, status)
 
   firebase.auth().onAuthStateChanged(async user => {
-    store.commit(`auth/${TYPES.CLEAR_USER_LOADING}`)
-
     console.log('User information loaded')
 
     if (!user) {
@@ -29,6 +27,8 @@ const initializeApp = async store => {
       return
     }
     const _user = await setUser(user)
+
+    store.commit(`auth/${TYPES.CLEAR_USER_LOADING}`)
 
     store.commit(`auth/${TYPES.CLEAR_USER}`)
 

@@ -2,7 +2,7 @@ import moment from 'moment'
 import { isNil } from 'lodash'
 import factoryUser from 'src/domains/User/factory-user'
 import database from './database'
-import checkExistUser from './check-exist-user'
+import getUser from './get-user'
 
 const setUser = user => {
   const _user = factoryUser(user)
@@ -17,7 +17,7 @@ const setUser = user => {
 }
 
 export default (userFromGoogle) => {
-  return checkExistUser(userFromGoogle.uid)
+  return getUser(userFromGoogle.uid)
     .then(_user => {
       if (isNil(_user)) {
         return setUser(_user)

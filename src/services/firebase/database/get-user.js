@@ -1,6 +1,11 @@
 import database from './database'
 
-export default (uidUser) => {
+/**
+ * @method getUser
+ * @param  {String} uidUser
+ * @return {Promise<Object>}
+ */
+const getUser = uidUser => {
   return database
     .ref()
     .child('users')
@@ -8,3 +13,5 @@ export default (uidUser) => {
     .once('value')
     .then(data => data.val())
 }
+
+export default getUser
