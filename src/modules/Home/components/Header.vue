@@ -30,17 +30,21 @@
         />
       </QBtnGroup>
     </div>
+
+    <AppVersion />
   </header>
 </template>
 
 <script>
 import { QBtn, QBtnGroup } from 'quasar'
+import AppVersion from 'src/components/Version'
 
 export default {
   name: 'HomeHeader',
   components: {
     QBtn,
-    QBtnGroup
+    QBtnGroup,
+    AppVersion
   }
 }
 </script>

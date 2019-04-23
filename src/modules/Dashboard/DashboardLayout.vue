@@ -37,6 +37,8 @@
         <q-separator v-if="menuItem.separator" />
 
       </QList>
+
+      <AppVersion class="absolute-bottom-left" />
     </QDrawer>
 
     <q-page-container>
@@ -70,6 +72,7 @@ import { mapState } from 'vuex'
 import HeaderUserActions from './components/Header/UserActions'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import menuList from './menu'
+import AppVersion from 'src/components/Version'
 
 export default {
   name: 'DashboardLayout',
@@ -83,6 +86,7 @@ export default {
     QItemSection,
     QIcon,
     QSeparator,
+    AppVersion,
     HeaderUserActions
   },
   data: () => ({
