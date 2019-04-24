@@ -100,13 +100,13 @@ export default {
       return get(this.userData, 'university_link', '')
     },
     isStudentInformations () {
-      return this.universityLink === 'student'
+      return this.universityLink === UNIVERSITY_LINKS.STUDENT
     },
     isNotEmployeeInformations () {
-      return this.universityLink === 'not_employee'
+      return this.universityLink === UNIVERSITY_LINKS.NOT_EMPLOYEE
     },
     isEmployeeInformations () {
-      return this.universityLink === 'employee'
+      return this.universityLink === UNIVERSITY_LINKS.EMPLOYEE
     },
     hasCompany () {
       return get(this.userData, 'is_employer', false)
