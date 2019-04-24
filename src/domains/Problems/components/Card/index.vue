@@ -42,25 +42,44 @@
         @close="onClose"
       />
 
+      <UserInfoModal
+        ref="userInfo"
+        :userUid="problemUserUid"
+      />
+
       <QChip square color="primary" text-color="white" icon="event">
         {{ createdAt }}
       </QChip>
 
-      <div class="row items-center q-ma-xs">
+      <div class="row items-center">
         <!-- <QIcon
           v-if="canEditProblem"
           class="q-mr-md lightbulb cursor-pointer"
           name="fas fa-edit"
           size="32px"
           @click="openEditProblemModal" /> -->
-        <QIcon
-          v-if="isCardFromUser"
+        <!-- <QIcon
+          v-if="isAdmin"
+          class="cursor-pointer"
           name="fas fa-user-alt"
-          size="32px">
+          @click="openUserInformation">
           <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-            Problema reportado por mim
+            Clique para ver informações do usuário que criou
           </QTooltip>
-        </QIcon>
+        </QIcon> -->
+
+        <QBtn
+          v-if="isAdmin"
+          class="cursor-pointer"
+          icon="far fa-user"
+          round
+          flat
+          color="primary"
+          @click="openUserInformation">
+          <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+            Clique para ver informações do usuário que criou
+          </QTooltip>
+        </QBtn>
 
         <QIcon
           v-if="hasSuggestion"
@@ -84,6 +103,7 @@ import SolutionModal from './solution'
 import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import EditProblemStatus from './edit-status'
+import UserInfoModal from 'src/domains/User/components/UserInfo/adapter/Modal'
 
 export default {
   name: 'ProblemCard',
@@ -96,6 +116,7 @@ export default {
     QSeparator,
     QCardSection,
     SolutionModal,
+    UserInfoModal,
     ProblemActions,
     EditProblemModal,
     EditProblemStatus,
@@ -118,7 +139,7 @@ export default {
       return !isEmpty(this.suggestion)
     },
     createdAt () {
-      return moment(toNumber(get(this.problem, 'created'))).format('MM-DD-YYYY HH:mm:ss')
+      return moment(toNumber(get(this.problem, 'created'))).format('DD-MM-YYYY HH:mm:ss')
     },
     problemUserUid () {
       return get(this.problem, 'user_uid', '')
@@ -148,6 +169,9 @@ export default {
     },
     onClose () {
       this.$emit('refetch')
+    },
+    openUserInformation () {
+      this.$refs.userInfo.open()
     }
   }
 }
