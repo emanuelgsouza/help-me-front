@@ -69,6 +69,19 @@
         </QIcon> -->
 
         <QBtn
+          v-if="hasSuggestion"
+          class="cursor-pointer"
+          icon="far fa-lightbulb"
+          round
+          flat
+          color="orange"
+          @click="openSuggestionModal">
+          <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+            Clique para ver a solução proposta
+          </QTooltip>
+        </QBtn>
+
+        <QBtn
           v-if="isAdmin"
           class="cursor-pointer"
           icon="far fa-user"
@@ -80,20 +93,13 @@
             Clique para ver informações do usuário que criou
           </QTooltip>
         </QBtn>
-
-        <QIcon
-          v-if="hasSuggestion"
-          class="q-ml-md lightbulb cursor-pointer"
-          name="far fa-lightbulb"
-          size="32px"
-          @click="openSuggestionModal" />
       </div>
     </QCardSection>
   </QCard>
 </template>
 
 <script>
-import { QTooltip, QCard, QCardSection, QSeparator, QChip, QIcon } from 'quasar'
+import { QTooltip, QCard, QCardSection, QSeparator, QChip } from 'quasar'
 import { get, isEmpty, toNumber } from 'lodash'
 import moment from 'moment'
 
@@ -111,7 +117,6 @@ export default {
   components: {
     QCard,
     QChip,
-    QIcon,
     QTooltip,
     QSeparator,
     QCardSection,
@@ -133,7 +138,7 @@ export default {
       return get(this.problem, 'description', '')
     },
     suggestion () {
-      return get(this.problem, 'sugestion', '')
+      return get(this.problem, 'suggestion', '')
     },
     hasSuggestion () {
       return !isEmpty(this.suggestion)
