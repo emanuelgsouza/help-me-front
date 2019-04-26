@@ -44,7 +44,7 @@
     <q-page-container>
       <router-view />
 
-      <CreateProblemModal ref="createProblem" />
+      <CreateProblemModal ref="createProblem" @refetch="onRefetch" />
 
       <QPageSticky position="bottom-right" :offset="[18, 18]">
         <QFab color="negative" icon="keyboard_arrow_up" direction="up">
@@ -108,6 +108,9 @@ export default {
       }
 
       return true
+    },
+    onRefetch () {
+      this.$root.$emit('load:problems')
     }
   }
 }

@@ -153,6 +153,8 @@ export default {
     this.loadProblems()
 
     this.fillFilter(this.hasUser)
+
+    this.$root.$on('load:problems', this.loadProblems)
   }
 }
 </script>

@@ -20,6 +20,15 @@
           label="Você gostaria de deixar alguma solução?"
           type="textarea"
           v-model="model.suggestion" />
+
+        <QSelect
+          v-if="isAdmin && isRecentlyProblem"
+          filled
+          emit-value
+          map-options
+          label="Aprovar problema para aparecer na listagem"
+          :options="options"
+          v-model="model.approved" />
       </QForm>
     </div>
 
@@ -42,16 +51,18 @@
 
 <script>
 import { get, isEqual } from 'lodash'
-import { QForm, QInput } from 'quasar'
+import { QForm, QInput, QSelect } from 'quasar'
 import AppModal from 'src/components/Modal'
 import AppLoading from 'src/components/Loading'
 import modalMixin from 'src/support/mixins/modal'
 import { editProblem } from 'src/services/firebase/database'
+import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
+import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'EditProblemModal',
-  mixins: [ modalMixin ],
-  components: { AppModal, QForm, QInput, AppLoading },
+  mixins: [ modalMixin, injectUser ],
+  components: { AppModal, QForm, QInput, QSelect, AppLoading },
   props: {
     problem: {
       type: Object,
@@ -62,8 +73,13 @@ export default {
     loading: false,
     model: {
       description: null,
-      suggestion: null
-    }
+      suggestion: null,
+      approved: false
+    },
+    options: [
+      { label: 'Sim', value: true },
+      { label: 'Não', value: false }
+    ]
   }),
   computed: {
     isEqualData () {
@@ -71,18 +87,33 @@ export default {
         description: get(this.problem, 'description', ''),
         suggestion: get(this.problem, 'suggestion', '')
       })
+    },
+    isRecentlyProblem () {
+      return !this.problem.approved
     }
   },
   methods: {
     fill () {
       this.model.description = get(this.problem, 'description', '')
       this.model.suggestion = get(this.problem, 'suggestion', '')
+      this.model.approved = get(this.problem, 'approved', false)
+    },
+    factoryModel () {
+      const model = {
+        ...this.model
+      }
+
+      if (this.isRecentlyProblem && this.model.approved) {
+        model['problem_status'] = PROBLEM_STATUS_CONSTANTS.PENDING
+      }
+
+      return model
     },
     onSave () {
       this.loading = true
       const { uid } = this.problem
 
-      return editProblem(uid, this.model)
+      return editProblem(uid, this.factoryModel(this.model))
         .then(() => {
           this.loading = false
           this.$q.notify({
