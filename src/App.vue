@@ -25,7 +25,6 @@ export default {
       }
 
       if (user.is_first_login) {
-        console.log({ user })
         this.$router.push({
           name: 'dashboard.user.settings'
         })

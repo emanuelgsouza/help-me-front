@@ -1,4 +1,4 @@
-import database from './database'
+import firestore from './firestore'
 
 /**
  * @method getUser
@@ -6,12 +6,17 @@ import database from './database'
  * @return {Promise<Object>}
  */
 const getUser = uidUser => {
-  return database
-    .ref()
-    .child('users')
-    .child(uidUser)
-    .once('value')
-    .then(data => data.val())
+  return firestore
+    .collection('users')
+    .doc(uidUser)
+    .get()
+    .then(user => {
+      if (user.exists) {
+        return user.data()
+      }
+
+      return null
+    })
 }
 
 export default getUser

@@ -16,18 +16,30 @@
           <QSelect
             label="Filtro"
             v-model="filterOption"
-            :options="filterOptions" />
+            :options="filterOptions"
+          />
         </div>
       </div>
     </div>
 
     <div class="row q-col-gutter-sm">
-      <div class="col-xs-12 col-sm-6 col-md-4" v-for="(problem, key) in problems" :key="key">
+      <div
+        class="col-xs-12 col-sm-6 col-md-4"
+        v-for="(problem, key) in problems"
+        :key="key"
+      >
         <ProblemCard
           :problem="problem"
           @refetch="loadProblems"
         />
       </div>
+    </div>
+
+    <div
+      v-if="!hasProblems && !loading"
+      class="q-my-md q-pa-md bg-orange text-white text-center"
+    >
+      <p class="no-margin text-body1"> Não há problemas para exibir </p>
     </div>
 
     <AppLoading :loading="loading" />
@@ -36,6 +48,7 @@
 
 <script>
 import { QSelect } from 'quasar'
+import { isEmpty } from 'lodash'
 import ProblemCard from 'src/domains/Problems/components/Card'
 import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
@@ -71,6 +84,9 @@ export default {
     },
     inRecentlyRoute () {
       return this.$route.name === 'dashboard.problems.recently'
+    },
+    hasProblems () {
+      return !isEmpty(this.problems)
     },
     title () {
       if (this.inRecentlyRoute) {

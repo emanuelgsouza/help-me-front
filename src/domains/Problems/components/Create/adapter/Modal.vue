@@ -51,6 +51,8 @@ export default {
             color: 'positive',
             icon: 'thumb_up'
           })
+
+          this.close()
         })
         .catch(err => {
           this.$q.loading.hide()

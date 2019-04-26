@@ -1,15 +1,12 @@
-import database from './database'
-import { returnKey } from './helpers'
 import factoryProblem from 'src/domains/Problems/support/factory-data'
+import firestore from './firestore'
 
 const createProblem = async (problem, user) => {
   const model = factoryProblem(user, problem)
-  const key = returnKey('problems')
-  model['uid'] = key
+  const documentReference = firestore.collection('problems').doc()
+  model['uid'] = documentReference.id
 
-  const problemRegistered = database.ref('problems').child(key).set(problem)
-
-  return problemRegistered
+  return documentReference.set(model)
 }
 
 export default createProblem

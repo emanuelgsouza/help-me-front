@@ -1,12 +1,10 @@
-import database from './database'
-import { loadValues } from './helpers'
+import firestore from './firestore'
 
 const getProblemStatuses = () => {
-  return new Promise((resolve, reject) => {
-    database
-      .ref('problem_statuses')
-      .on('value', loadValues(resolve))
-  })
+  return firestore
+    .collection('problem_statuses')
+    .get()
+    .then(QuerySnapshoot => QuerySnapshoot.docs.map(doc => doc.data()))
 }
 
 export default getProblemStatuses

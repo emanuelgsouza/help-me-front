@@ -22,6 +22,11 @@ export const PROBLEM_STATUS = {
   }
 }
 
+export const PROBLEM_STATUS_CONSTANTS = {
+  PENDING_APPROVE: 'PENDING_APPROVE',
+  APPRECIATED: 'APPRECIATED'
+}
+
 /**
  * @type {Object}
  */

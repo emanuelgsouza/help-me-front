@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { PROBLEM_STATUS } from 'src/domains/ProblemStatus/constants'
+import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
 
 /**
  * @method factoryProblem
@@ -15,7 +15,7 @@ const factoryProblem = (user, model) => {
     user_uid: user.uid,
     created,
     approved: false,
-    problem_status: PROBLEM_STATUS.PENDING
+    problem_status: PROBLEM_STATUS_CONSTANTS.PENDING_APPROVE
   }
 }
 

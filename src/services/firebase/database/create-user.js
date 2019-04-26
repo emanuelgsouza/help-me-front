@@ -1,26 +1,26 @@
 import moment from 'moment'
 import { isNil } from 'lodash'
 import factoryUser from 'src/domains/User/factory-user'
-import database from './database'
 import getUser from './get-user'
+import firestore from './firestore'
 
 const setUser = user => {
   const _user = factoryUser(user)
 
-  const created = moment().format('x')
-  _user['created'] = created
+  _user['created'] = moment().format('x')
 
-  return database
-    .ref(`users/${user.uid}`)
-    .set(user)
-    .then(data => data.val())
+  return firestore
+    .collection('users')
+    .doc(user.uid)
+    .set(_user)
+    .then(() => _user)
 }
 
 export default (userFromGoogle) => {
   return getUser(userFromGoogle.uid)
     .then(_user => {
       if (isNil(_user)) {
-        return setUser(_user)
+        return setUser(userFromGoogle)
       }
 
       return _user

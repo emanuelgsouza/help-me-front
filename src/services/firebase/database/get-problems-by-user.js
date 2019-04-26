@@ -1,15 +1,12 @@
-import database from './database'
+import firestore from './firestore'
+import loadValues from './helpers/load-values'
 
 const getProblemsByUser = userUid => {
-  return new Promise((resolve, reject) => {
-    return database
-      .ref('problems')
-      .orderByChild('user_uid')
-      .equalTo(userUid)
-      .on('value', data => {
-        resolve(data.val())
-      })
-  })
+  return firestore
+    .collection('problems')
+    .where('user_uid', '==', userUid)
+    .get()
+    .then(loadValues)
 }
 
 export default getProblemsByUser

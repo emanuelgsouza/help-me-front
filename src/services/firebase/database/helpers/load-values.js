@@ -1,12 +1,13 @@
-import { isNil } from 'lodash'
+import { get } from 'lodash'
 
 /**
  * @method loadValues
- * @param {Function} resolve Promise.resolve function
+ * @param {QuerySnapshoot} QuerySnapshoot Firestore.QuerySnapshoot instance
  */
-const loadValues = resolve => data => {
-  const val = data.val()
-  resolve(isNil(val) ? [] : Object.values(val))
+const loadValues = QuerySnapshoot => {
+  const docs = get(QuerySnapshoot, 'docs', []) || []
+
+  return docs.map(doc => doc.data())
 }
 
 export default loadValues

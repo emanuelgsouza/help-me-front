@@ -157,9 +157,11 @@ export default {
     fillUser (user) {
       this.userData = { ...user || {} }
 
-      if (user.is_first_login) {
-        this.userData.is_first_login = false
-      }
+      this.$nextTick(() => {
+        if (this.isFirstLogin) {
+          this.userData.is_first_login = false
+        }
+      })
     }
   },
   mounted () {

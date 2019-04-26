@@ -1,8 +1,9 @@
-import database from './database'
+import firestore from './firestore'
 
 const editUser = (userUid, model) => {
-  return database
-    .ref(`/users/${userUid}`)
+  return firestore
+    .collection('users')
+    .doc(userUid)
     .update(model)
 }
 

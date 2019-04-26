@@ -1,6 +1,7 @@
-import database from './database'
 import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
 import { loadValues } from './helpers'
+import firestore from './firestore'
+import getProblemsByUser from './get-problems-by-user'
 
 /**
  * @method getProblems
@@ -8,47 +9,31 @@ import { loadValues } from './helpers'
  */
 const getProblems = ({ filter, userUid, recently }) => {
   if (recently) {
-    return new Promise((resolve, reject) => {
-      database
-        .ref('problems')
-        .orderByChild('approved')
-        .equalTo(false)
-        .once('value')
-        .then(loadValues(resolve))
-    })
+    return firestore
+      .collection('problems')
+      .where('approved', '==', false)
+      .get()
+      .then(loadValues)
   }
 
   if (filter === FILTER_OPTIONS.NOTHING) {
-    return new Promise((resolve, reject) => {
-      database
-        .ref('problems')
-        .orderByChild('approved')
-        .equalTo(true)
-        .once('value')
-        .then(loadValues(resolve))
-    })
+    return firestore
+      .collection('problems')
+      .where('approved', '==', true)
+      .get()
+      .then(loadValues)
   }
 
-  // TODO: Não vai funcionar, pensando na possibilidade usar o Firestore
   if (filter === FILTER_OPTIONS.WITHOUT_SOLUTION) {
-    return new Promise((resolve, reject) => {
-      database
-        .ref('problems')
-        .orderByChild('suggestion')
-        .equalTo('')
-        .once('value')
-        .then(loadValues(resolve))
-    })
+    return firestore
+      .collection('problems')
+      .where('approved', '==', true)
+      .where('suggestion', '==', '')
+      .get()
+      .then(loadValues)
   }
 
-  return new Promise((resolve, reject) => {
-    database
-      .ref('problems')
-      .orderByChild('user_uid')
-      .equalTo(userUid)
-      .once('value')
-      .then(loadValues(resolve))
-  })
+  return getProblemsByUser(userUid)
 }
 
 export default getProblems
