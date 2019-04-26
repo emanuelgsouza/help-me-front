@@ -13,7 +13,9 @@ export default {
   <QSelect
     :options="problemsStatusesOptions"
     emit-value
-    map-option
+    option-label="label"
+    option-value="value"
+    map-options
     v-bind="$attrs"
     v-on="$listeners"
   />

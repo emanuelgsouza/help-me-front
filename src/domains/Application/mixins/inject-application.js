@@ -8,12 +8,18 @@ export default {
   computed: {
     ...mapGetters('application', GETTERS),
     problemsStatusesOptions () {
-      return this.problemsStatuses.map(status => {
+      const status = this.problemsStatuses.map(status => {
         return {
-          label: status.label,
-          value: status.value
+          label: status.name,
+          value: status.id
         }
       })
+      status.push({
+        label: 'Nenhum filtro',
+        value: 'Nenhum filtro'
+      })
+
+      return status
     }
   }
 }

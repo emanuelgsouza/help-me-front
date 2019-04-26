@@ -5,15 +5,18 @@
         <p class="text-h5"> {{ title }} </p>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 row gutter-xs justify-end">
-        <!-- <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="col-xs-12 col-sm-6 col-md-4 row q-col-gutter-xs justify-end">
+        <div class="col-xs-12 col-sm-6 col-md-6">
           <ProblemStatusSelect
             label="Filtre por um tipo"
-            v-model="problemStatusOption" />
-        </div> -->
+            v-model="problemStatusOption"
+          />
+        </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6">
           <QSelect
+            emit-value
+            map-options
             label="Filtro"
             v-model="filterOption"
             :options="filterOptions"
@@ -54,7 +57,7 @@ import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
 import injectUserMixin from 'src/domains/User/mixins/inject-user'
 import { getFilterOptions, FILTER_OPTIONS } from 'src/domains/Problems/constants'
-// import ProblemStatusSelect from 'src/domains/ProblemStatus/components/ProblemStatusSelect'
+import ProblemStatusSelect from 'src/domains/ProblemStatus/components/ProblemStatusSelect'
 
 export default {
   name: 'ProblemsListPage',
@@ -62,14 +65,14 @@ export default {
   components: {
     QSelect,
     AppLoading,
-    ProblemCard
-    // ProblemStatusSelect
+    ProblemCard,
+    ProblemStatusSelect
   },
   data: () => ({
     problems: [],
     loading: false,
     filterOption: FILTER_OPTIONS.NOTHING,
-    problemStatusOption: null,
+    problemStatusOption: FILTER_OPTIONS.NOTHING,
     filterOptions: Object.values(FILTER_OPTIONS)
   }),
   computed: {
@@ -98,6 +101,7 @@ export default {
   },
   watch: {
     filterOption: 'loadProblems',
+    problemStatusOption: 'loadProblems',
     hasUser: 'fillFilter',
     inRecentlyRoute: 'loadProblems'
   },
@@ -106,23 +110,33 @@ export default {
       this.loading = true
 
       if (this.inRecentlyRoute) {
-        const options = { recently: true }
+        const options = {
+          recently: true,
+          status: this.problemStatusOption
+        }
         return getProblems(options).then(this.finish)
       }
 
       if (this.isNothing) {
-        const options = { filter: FILTER_OPTIONS.NOTHING }
+        const options = {
+          filter: FILTER_OPTIONS.NOTHING,
+          status: this.problemStatusOption
+        }
         return getProblems(options).then(this.finish)
       }
 
       if (this.withoutSolution) {
-        const options = { filter: FILTER_OPTIONS.WITHOUT_SOLUTION }
+        const options = {
+          filter: FILTER_OPTIONS.WITHOUT_SOLUTION,
+          status: this.problemStatusOption
+        }
         return getProblems(options).then(this.finish)
       }
 
       const options = {
         filter: FILTER_OPTIONS.MY_PROBLEMS,
-        userUid: this.userUid
+        userUid: this.userUid,
+        status: this.problemStatusOption
       }
       return getProblems(options).then(this.finish)
     },
