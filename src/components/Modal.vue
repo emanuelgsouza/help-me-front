@@ -48,6 +48,10 @@ export default {
   }),
   computed: {
     cardStyle () {
+      if (this.isMaximized) {
+        return null
+      }
+
       if (this.size === 'small') {
         return null
       }
