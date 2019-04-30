@@ -1,4 +1,5 @@
 import { get } from 'lodash'
+import { getCreated } from 'src/support/helpers'
 
 /**
  * @method factoryUser
@@ -29,7 +30,8 @@ const factoryUser = userFromGoogle => {
     company_phone: '',
     is_first_login: true,
     deleted: false,
-    deleted_date: null
+    deleted_date: null,
+    created: getCreated()
   }
 }
 

@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { isNil } from 'lodash'
 import factoryUser from 'src/domains/User/factory-user'
 import getUser from './get-user'
@@ -6,8 +5,6 @@ import firestore from './firestore'
 
 const setUser = user => {
   const _user = factoryUser(user)
-
-  _user['created'] = moment().format('x')
 
   return firestore
     .collection('users')

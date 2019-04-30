@@ -1,11 +1,11 @@
-import moment from 'moment'
+import { getCreated } from 'src/support/helpers'
 
 import editProblem from './edit-problem'
 
 const deleteProblem = problemUid => {
   const model = {
     deleted: true,
-    deleted_date: moment().format('x')
+    deleted_date: getCreated()
   }
 
   return editProblem(problemUid, model)

@@ -1,5 +1,5 @@
-import moment from 'moment'
 import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
+import { getCreated } from 'src/support/helpers'
 
 /**
  * @method factoryProblem
@@ -8,12 +8,10 @@ import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
  * @return {Object}
  */
 const factoryProblem = (user, model) => {
-  const created = moment().format('x')
-
   return {
     ...model,
     user_uid: user.uid,
-    created,
+    created: getCreated(),
     approved: false,
     problem_status: PROBLEM_STATUS_CONSTANTS.PENDING_APPROVE,
     deleted: false,
