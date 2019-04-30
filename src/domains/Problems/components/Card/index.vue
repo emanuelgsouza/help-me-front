@@ -13,6 +13,7 @@
             :problem="problem"
             v-if="showActions"
             @edit="openEditProblemModal"
+            @delete="onDeleteProblem"
             @editStatus="openEditProblemStatusModal"
           />
         </div>
@@ -110,6 +111,7 @@ import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import EditProblemStatus from './edit-status'
 import UserInfoModal from 'src/domains/User/components/UserInfo/adapter/Modal'
+import { deleteProblem } from 'src/services/firebase/database'
 
 export default {
   name: 'ProblemCard',
@@ -134,6 +136,9 @@ export default {
     }
   },
   computed: {
+    problemUid () {
+      return get(this.problem, 'uid', '')
+    },
     description () {
       return get(this.problem, 'description', '')
     },
@@ -177,6 +182,23 @@ export default {
     },
     openUserInformation () {
       this.$refs.userInfo.open()
+    },
+    onDeleteProblem () {
+      this.$q.dialog({
+        title: 'Aviso',
+        message: 'Você tem certeza que quer excluir esse problema?'
+      })
+        .onOk(() => {
+          deleteProblem(this.problemUid)
+            .then(() => {
+              this.$q.notify({
+                message: 'Problema deletado com sucesso',
+                color: 'positive'
+              })
+
+              this.onClose()
+            })
+        })
     }
   }
 }

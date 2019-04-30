@@ -9,7 +9,7 @@ import getProblemsByUser from './get-problems-by-user'
  * @return {Promise<Array<Object>>}
  */
 const getProblems = ({ filter, userUid, status, recently }) => {
-  let query = firestore.collection('problems')
+  let query = firestore.collection('problems').where('deleted', '==', false)
 
   if (!isNil(status)) {
     if (status !== FILTER_OPTIONS.NOTHING) {

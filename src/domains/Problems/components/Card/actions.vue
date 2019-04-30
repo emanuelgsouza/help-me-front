@@ -16,6 +16,13 @@
         >
           <QItemSection> Status </QItemSection>
         </QItem>
+        <QItem
+          v-if="isAdmin"
+          clickable
+          @click="$emit('delete')"
+        >
+          <QItemSection> Excluir </QItemSection>
+        </QItem>
       </QList>
     </QMenu>
   </QBtn>
