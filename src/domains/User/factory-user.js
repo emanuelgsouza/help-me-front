@@ -27,7 +27,9 @@ const factoryUser = userFromGoogle => {
     company_activity: '',
     company_name: '',
     company_phone: '',
-    is_first_login: true
+    is_first_login: true,
+    deleted: false,
+    deleted_date: null
   }
 }
 
