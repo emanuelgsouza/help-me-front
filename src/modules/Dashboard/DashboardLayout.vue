@@ -47,12 +47,12 @@
       <CreateProblemModal ref="createProblem" @refetch="onRefetch" />
 
       <QPageSticky position="bottom-right" :offset="[18, 18]">
-        <QFab color="negative" icon="keyboard_arrow_up" direction="up">
-          <QFabAction
-            color="primary"
-            icon="add"
-            @click="$refs.createProblem.open()" />
-        </QFab>
+        <QBtn
+          fab
+          color="primary"
+          icon="add"
+          @click="$refs.createProblem.open()"
+        />
       </QPageSticky>
     </q-page-container>
 
@@ -61,8 +61,7 @@
 
 <script>
 import {
-  QFab,
-  QFabAction,
+  QBtn,
   QPageSticky,
   QList,
   QItem,
@@ -80,8 +79,7 @@ export default {
   name: 'DashboardLayout',
   mixins: [ injectUser ],
   components: {
-    QFab,
-    QFabAction,
+    QBtn,
     QPageSticky,
     QList,
     QItem,
