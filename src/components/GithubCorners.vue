@@ -1,10 +1,11 @@
-<template functional>
+<template>
   <a href="https://github.com/emanuelgsouza/help-me" class="github-corner" aria-label="View source on GitHub">
     <svg
       width="80"
       height="80"
       viewBox="0 0 250 250"
-      style="fill:#1773cf; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+      style="fill:#1773cf; color:#fff; border: 0;"
+      :style="positionStyle"
       aria-hidden="true"
     >
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -26,7 +27,29 @@
 <script>
 export default {
   name: 'HomeGithubHibbon',
-  functional: true
+  props: {
+    position: {
+      type: String,
+      default: 'top-bottom'
+    }
+  },
+  computed: {
+    positionStyle () {
+      if (this.position === 'top-bottom') {
+        return 'position: absolute; top: 0; right: 0;'
+      }
+
+      if (this.position === 'bottom-left') {
+        return 'position: absolute; bottom: 0; border: 0; left: 0;'
+      }
+
+      if (this.position === 'bottom-right') {
+        return 'position: absolute; bottom: 0; border: 0; right: 0;'
+      }
+
+      return 'position: absolute; top: 0; border: 0; left: 0;'
+    }
+  }
 }
 </script>
 

@@ -13,7 +13,13 @@
       </q-toolbar>
     </q-header>
 
-    <QDrawer behavior="mobile" v-model="left" side="left" bordered>
+    <QDrawer
+      class="relative-position"
+      behavior="mobile"
+      v-model="left"
+      side="left"
+      bordered
+    >
       <figure>
         <img
           src="https://portal.unigranrio.edu.br/hs-fs/hubfs/logo_azul-topo.png?width=243&name=logo_azul-topo.png" />
@@ -38,7 +44,7 @@
 
       </QList>
 
-      <AppVersion class="absolute-bottom-left" />
+      <AppVersion class="absolute-bottom-left" color="primary" />
     </QDrawer>
 
     <q-page-container>
@@ -80,13 +86,13 @@ export default {
   mixins: [ injectUser ],
   components: {
     QBtn,
-    QPageSticky,
     QList,
     QItem,
-    QItemSection,
     QIcon,
     QSeparator,
     AppVersion,
+    QPageSticky,
+    QItemSection,
     HeaderUserActions,
     CreateProblemModal
   },

@@ -14,7 +14,7 @@
 <script>
 import HomeHeader from './components/Header'
 // import HomeSection from './components/Section'
-import GithubCorners from './components/GithubCorners'
+import GithubCorners from 'src/components/GithubCorners'
 
 export default {
   name: 'HomeLayout',

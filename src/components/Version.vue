@@ -1,6 +1,6 @@
 <template>
   <div class="app-version">
-    <QChip dense square icon="fas fa-tag" :color="color">
+    <QChip dense square icon="fas fa-tag" :color="color" text-color="white">
       {{ appVersion }}
     </QChip>
   </div>
