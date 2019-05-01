@@ -23,6 +23,13 @@
         >
           <QItemSection> Excluir </QItemSection>
         </QItem>
+        <QItem
+          v-if="isShowApproved"
+          clickable
+          @click="$emit('approve')"
+        >
+          <QItemSection> Aprovar </QItemSection>
+        </QItem>
       </QList>
     </QMenu>
   </QBtn>
@@ -42,6 +49,11 @@ export default {
     QList,
     QItem,
     QItemSection
+  },
+  computed: {
+    isShowApproved () {
+      return this.isAdmin && !this.isApproved
+    }
   }
 }
 </script>

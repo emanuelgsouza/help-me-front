@@ -14,6 +14,7 @@
             v-if="showActions"
             @edit="openEditProblemModal"
             @delete="onDeleteProblem"
+            @approve="onApproveProblem"
             @editStatus="openEditProblemStatusModal"
           />
         </div>
@@ -111,7 +112,7 @@ import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import EditProblemStatus from './edit-status'
 import UserInfoModal from 'src/domains/User/components/UserInfo/adapter/Modal'
-import { deleteProblem } from 'src/services/firebase/database'
+import { deleteProblem, approveProblem } from 'src/services/firebase/database'
 
 export default {
   name: 'ProblemCard',
@@ -183,13 +184,30 @@ export default {
     openUserInformation () {
       this.$refs.userInfo.open()
     },
+    onApproveProblem () {
+      this.$q.dialog({
+        title: 'Aprovar',
+        message: 'Ao aprovar este problema, ele estará disponível para visualização'
+      })
+        .onOk(() => {
+          approveProblem(this.problemUid, this.userUid)
+            .then(() => {
+              this.$q.notify({
+                message: 'Problema aprovado com sucesso com sucesso',
+                color: 'positive'
+              })
+
+              this.onClose()
+            })
+        })
+    },
     onDeleteProblem () {
       this.$q.dialog({
         title: 'Aviso',
         message: 'Você tem certeza que quer excluir esse problema?'
       })
         .onOk(() => {
-          deleteProblem(this.problemUid)
+          deleteProblem(this.problemUid, this.userUid)
             .then(() => {
               this.$q.notify({
                 message: 'Problema deletado com sucesso',

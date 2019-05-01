@@ -18,6 +18,9 @@ export default {
     },
     canEditProblem () {
       return this.isCardFromUser || this.isAdmin
+    },
+    isApproved () {
+      return get(this.problem, 'approved', false)
     }
   }
 }

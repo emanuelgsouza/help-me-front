@@ -3,19 +3,19 @@ import { getCreated } from 'src/support/helpers'
 import editProblem from './edit-problem'
 
 /**
- * @method deleteProblem
+ * @method approveProblem
  * @param  {String} problemUid
  * @param  {String} userUid
  * @return {Promise}
  */
-const deleteProblem = (problemUid, userUid) => {
+const approveProblem = (problemUid, userUid) => {
   const model = {
-    deleted: true,
-    deleted_date: getCreated(),
-    user_deleted: userUid
+    approved: true,
+    date_approved: getCreated(),
+    user_approved: userUid
   }
 
   return editProblem(problemUid, model)
 }
 
-export default deleteProblem
+export default approveProblem

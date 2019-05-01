@@ -2,7 +2,10 @@
   <AppModal
     ref="modal"
     size="medium"
-    actions-align="right">
+    actions-align="right"
+    @hide="fill"
+    @show="fill"
+  >
     <div slot="title">
       <div class="text-h6"> Editar problema </div>
     </div>
@@ -20,15 +23,6 @@
           label="Você gostaria de deixar alguma solução?"
           type="textarea"
           v-model="model.suggestion" />
-
-        <QSelect
-          v-if="isAdmin && isRecentlyProblem"
-          filled
-          emit-value
-          map-options
-          label="Aprovar problema para aparecer na listagem"
-          :options="options"
-          v-model="model.approved" />
       </QForm>
     </div>
 
@@ -51,7 +45,7 @@
 
 <script>
 import { get, isEqual } from 'lodash'
-import { QForm, QInput, QSelect } from 'quasar'
+import { QForm, QInput } from 'quasar'
 import AppModal from 'src/components/Modal'
 import AppLoading from 'src/components/Loading'
 import modalMixin from 'src/support/mixins/modal'
@@ -62,7 +56,7 @@ import injectUser from 'src/domains/User/mixins/inject-user'
 export default {
   name: 'EditProblemModal',
   mixins: [ modalMixin, injectUser ],
-  components: { AppModal, QForm, QInput, QSelect, AppLoading },
+  components: { AppModal, QForm, QInput, AppLoading },
   props: {
     problem: {
       type: Object,
@@ -73,8 +67,7 @@ export default {
     loading: false,
     model: {
       description: null,
-      suggestion: null,
-      approved: false
+      suggestion: null
     },
     options: [
       { label: 'Sim', value: true },
@@ -96,7 +89,6 @@ export default {
     fill () {
       this.model.description = get(this.problem, 'description', '')
       this.model.suggestion = get(this.problem, 'suggestion', '')
-      this.model.approved = get(this.problem, 'approved', false)
     },
     factoryModel () {
       const model = {

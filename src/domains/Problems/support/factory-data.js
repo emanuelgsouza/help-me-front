@@ -12,10 +12,13 @@ const factoryProblem = (user, model) => {
     ...model,
     user_uid: user.uid,
     created: getCreated(),
-    approved: false,
     problem_status: PROBLEM_STATUS_CONSTANTS.PENDING,
     deleted: false,
-    deleted_date: null
+    deleted_date: null,
+    approved: false,
+    date_approved: null,
+    user_approved: null,
+    user_deleted: null
   }
 }
 
