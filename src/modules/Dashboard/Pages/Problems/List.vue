@@ -1,11 +1,17 @@
 <template>
   <QPage padding>
     <div class="row q-mb-md">
-      <div class="col-xs-12 col-sm-6 col-md-8">
+      <div
+        class="col-xs-12"
+        :class="hasUser ? 'col-sm-6 col-md-8' : null"
+      >
         <p class="text-h5"> {{ title }} </p>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 row q-col-gutter-xs justify-end">
+      <div
+        v-if="hasUser"
+        class="col-xs-12 col-sm-6 col-md-4 row q-col-gutter-xs justify-end"
+      >
         <div class="col-xs-12 col-sm-6 col-md-6">
           <ProblemStatusSelect
             label="Filtre por um tipo"
@@ -97,6 +103,34 @@ export default {
       }
 
       return 'Conheça os problemas na nossa plataforma'
+    },
+    optionsProblem () {
+      if (this.inRecentlyRoute) {
+        return {
+          recently: true,
+          status: this.problemStatusOption
+        }
+      }
+
+      const options = {
+        userUid: this.userUid
+      }
+
+      if (this.isNothing) {
+        options['filter'] = FILTER_OPTIONS.NOTHING
+        options['status'] = this.problemStatusOption
+        return options
+      }
+
+      if (this.withoutSolution) {
+        options['filter'] = FILTER_OPTIONS.WITHOUT_SOLUTION
+        options['status'] = this.problemStatusOption
+        return options
+      }
+
+      options['filter'] = FILTER_OPTIONS.MY_PROBLEMS
+      options['status'] = this.problemStatusOption
+      return options
     }
   },
   watch: {
@@ -109,36 +143,7 @@ export default {
     loadProblems () {
       this.loading = true
 
-      if (this.inRecentlyRoute) {
-        const options = {
-          recently: true,
-          status: this.problemStatusOption
-        }
-        return getProblems(options).then(this.finish)
-      }
-
-      if (this.isNothing) {
-        const options = {
-          filter: FILTER_OPTIONS.NOTHING,
-          status: this.problemStatusOption
-        }
-        return getProblems(options).then(this.finish)
-      }
-
-      if (this.withoutSolution) {
-        const options = {
-          filter: FILTER_OPTIONS.WITHOUT_SOLUTION,
-          status: this.problemStatusOption
-        }
-        return getProblems(options).then(this.finish)
-      }
-
-      const options = {
-        filter: FILTER_OPTIONS.MY_PROBLEMS,
-        userUid: this.userUid,
-        status: this.problemStatusOption
-      }
-      return getProblems(options).then(this.finish)
+      return getProblems(this.optionsProblem).then(this.finish)
     },
     finish (problems) {
       this.loading = false
@@ -150,9 +155,11 @@ export default {
     }
   },
   mounted () {
-    this.loadProblems()
-
     this.fillFilter(this.hasUser)
+
+    this.$nextTick(() => {
+      this.loadProblems()
+    })
 
     this.$root.$on('load:problems', this.loadProblems)
   }

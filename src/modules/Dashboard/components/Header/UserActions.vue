@@ -73,6 +73,8 @@ export default {
           .then(() => {
             this.$q.loading.hide()
 
+            this.$root.$emit('load:problems')
+
             clearTimeout(timeout)
           })
       }, 2000)
