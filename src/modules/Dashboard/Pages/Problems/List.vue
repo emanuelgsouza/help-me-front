@@ -152,6 +152,8 @@ export default {
     fillFilter (hasUser) {
       this.filterOption = this.$options.data().filterOption
       this.filterOptions = Object.values(getFilterOptions(hasUser))
+
+      this.loadProblems()
     }
   },
   mounted () {

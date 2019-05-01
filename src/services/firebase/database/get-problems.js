@@ -1,8 +1,8 @@
-import { isNil } from 'lodash'
-import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
+import { isEmpty } from 'lodash'
 import { loadValues } from './helpers'
 import firestore from './firestore'
 import getProblemsByUser from './get-problems-by-user'
+import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
 
 /**
  * @method getProblems
@@ -11,12 +11,6 @@ import getProblemsByUser from './get-problems-by-user'
 const getProblems = ({ filter, userUid, status, recently }) => {
   let query = firestore.collection('problems').where('deleted', '==', false)
 
-  if (!isNil(status)) {
-    if (status !== FILTER_OPTIONS.NOTHING) {
-      query = query.where('problem_status', '==', status)
-    }
-  }
-
   if (recently) {
     return query
       .where('approved', '==', false)
@@ -24,22 +18,15 @@ const getProblems = ({ filter, userUid, status, recently }) => {
       .then(loadValues)
   }
 
-  if (filter === FILTER_OPTIONS.NOTHING) {
+  // Se não há usuário, só é possível visualizar problemas apreciados pela equipe de TI
+  if (isEmpty(userUid)) {
     return query
-      .where('approved', '==', true)
+      .where('problem_status', '==', PROBLEM_STATUS_CONSTANTS.APPRECIATED)
       .get()
       .then(loadValues)
   }
 
-  if (filter === FILTER_OPTIONS.WITHOUT_SOLUTION) {
-    return query
-      .where('approved', '==', true)
-      .where('suggestion', '==', '')
-      .get()
-      .then(loadValues)
-  }
-
-  return getProblemsByUser(userUid, status)
+  return getProblemsByUser(userUid, status, filter)
 }
 
 export default getProblems

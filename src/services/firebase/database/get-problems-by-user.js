@@ -3,8 +3,12 @@ import firestore from './firestore'
 import loadValues from './helpers/load-values'
 import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
 
-const getProblemsByUser = (userUid, status) => {
-  let query = firestore.collection('problems').where('deleted', '==', false)
+const getProblemsByUser = (userUid, status, filter) => {
+  let query = firestore
+    .collection('problems')
+    .where('approved', '==', true)
+    .where('deleted', '==', false)
+    .where('user_uid', '==', userUid)
 
   if (!isNil(status)) {
     if (status !== FILTER_OPTIONS.NOTHING) {
@@ -12,8 +16,20 @@ const getProblemsByUser = (userUid, status) => {
     }
   }
 
+  if (filter === FILTER_OPTIONS.NOTHING) {
+    return query
+      .get()
+      .then(loadValues)
+  }
+
+  if (filter === FILTER_OPTIONS.WITHOUT_SOLUTION) {
+    return query
+      .where('suggestion', '==', '')
+      .get()
+      .then(loadValues)
+  }
+
   return query
-    .where('user_uid', '==', userUid)
     .get()
     .then(loadValues)
 }
