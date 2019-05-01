@@ -1,6 +1,6 @@
 <template>
   <div class="app-version">
-    <QChip dense square icon="fas fa-tag" :color="color" text-color="white">
+    <QChip dense square icon="fas fa-tag" :color="color" :text-color="textColor">
       {{ appVersion }}
     </QChip>
   </div>
@@ -18,7 +18,16 @@ export default {
   },
   data: () => ({
     appVersion: pkg.version
-  })
+  }),
+  computed: {
+    textColor () {
+      if (this.color === 'primary') {
+        return 'white'
+      }
+
+      return 'primary'
+    }
+  }
 }
 </script>
 
