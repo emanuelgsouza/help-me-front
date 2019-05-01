@@ -4,7 +4,7 @@ import loadValues from './helpers/load-values'
 import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
 
 const getProblemsByUser = (userUid, status) => {
-  let query = firestore.collection('problems')
+  let query = firestore.collection('problems').where('deleted', '==', false)
 
   if (!isNil(status)) {
     if (status !== FILTER_OPTIONS.NOTHING) {
