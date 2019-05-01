@@ -1,5 +1,6 @@
 <template>
   <QChip
+    class="no-margin"
     square
     :color="problemStatusColor"
   > {{ problemStatusLabel }} </QChip>
