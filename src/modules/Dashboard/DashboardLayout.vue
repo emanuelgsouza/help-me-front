@@ -6,7 +6,7 @@
         <q-btn dense flat round icon="menu" @click="left = !left" />
 
         <q-toolbar-title>
-          Help-Me!
+          <span class="cursor-pointer" @click="goToList"> Help-Me! </span>
         </q-toolbar-title>
 
         <HeaderUserActions />
@@ -109,6 +109,11 @@ export default {
     },
     onRefetch () {
       this.$root.$emit('load:problems')
+    },
+    goToList () {
+      this.$router.push({
+        name: 'dashboard.index'
+      })
     }
   }
 }
