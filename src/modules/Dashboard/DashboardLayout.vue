@@ -58,7 +58,9 @@
           color="primary"
           icon="add"
           @click="$refs.createProblem.open()"
-        />
+        >
+          <QTooltip> Criar problema </QTooltip>
+        </QBtn>
       </QPageSticky>
     </q-page-container>
 
@@ -73,7 +75,8 @@ import {
   QItem,
   QItemSection,
   QIcon,
-  QSeparator
+  QSeparator,
+  QTooltip
 } from 'quasar'
 import HeaderUserActions from './components/Header/UserActions'
 import injectUser from 'src/domains/User/mixins/inject-user'
@@ -90,6 +93,7 @@ export default {
     QItem,
     QIcon,
     QSeparator,
+    QTooltip,
     AppVersion,
     QPageSticky,
     QItemSection,
