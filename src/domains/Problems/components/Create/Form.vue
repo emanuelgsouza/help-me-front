@@ -2,13 +2,13 @@
   <QForm
     @submit="onSubmit"
     @reset="onReset"
-    class="q-gutter-y-md"
-    :class="hasUser ? null : 'q-mt-md'">
+    class="q-gutter-y-md q-mt-md">
     <QInput
       filled
       label="Descreva seu problema: "
       type="textarea"
       v-model="model.description"
+      hint="Obrigatório"
       :disable="disableInput"
       :rules="[
         val => val.length > 0 || 'Preencha seu problema'

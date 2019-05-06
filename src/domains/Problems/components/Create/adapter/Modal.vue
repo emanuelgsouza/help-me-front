@@ -15,6 +15,12 @@
       <LoginButton style="display: block; margin: 0 auto" />
     </div>
 
+    <div class="bg-blue text-white q-pa-xs rounded-borders" v-if="hasUser">
+      <p class="q-ma-none text-center">
+        Após criar um problema, ele irá para análise por parte da Coordenadoria de TI da Unigranrio, para que após aprovado, ele possa aparecer na listagem de problemas.
+      </p>
+    </div>
+
     <CreateProblem @submit="onSubmit" />
   </AppModal>
 </template>
