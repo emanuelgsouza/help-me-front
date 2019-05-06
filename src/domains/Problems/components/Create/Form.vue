@@ -2,7 +2,8 @@
   <QForm
     @submit="onSubmit"
     @reset="onReset"
-    class="q-gutter-y-md">
+    class="q-gutter-y-md"
+    :class="hasUser ? null : 'q-mt-md'">
     <QInput
       filled
       label="Descreva seu problema: "
