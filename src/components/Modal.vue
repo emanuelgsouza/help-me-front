@@ -6,8 +6,10 @@
     v-on="$listeners"
   >
     <QCard :style="cardStyle">
-      <QCardSection>
+      <QCardSection class="row items-center">
         <slot name="title"></slot>
+        <QSpace />
+        <QBtn icon="close" flat round dense v-close-popup />
       </QCardSection>
 
       <QCardSection>
@@ -22,13 +24,25 @@
 </template>
 
 <script>
-import { QDialog, QCard, QCardSection, QCardActions } from 'quasar'
+import {
+  QDialog,
+  QCard,
+  QCardSection,
+  QCardActions,
+  QSpace
+} from 'quasar'
 import modalMixin from 'src/support/mixins/modal'
 
 export default {
   name: 'Modal',
   mixins: [ modalMixin ],
-  components: { QDialog, QCard, QCardSection, QCardActions },
+  components: {
+    QDialog,
+    QCard,
+    QCardSection,
+    QCardActions,
+    QSpace
+  },
   props: {
     'actions-align': {
       type: String
