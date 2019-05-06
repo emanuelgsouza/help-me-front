@@ -2,6 +2,7 @@
   <QChip
     class="no-margin"
     square
+    text-color="white"
     :color="problemStatusColor"
   > {{ problemStatusLabel }} </QChip>
 </template>
