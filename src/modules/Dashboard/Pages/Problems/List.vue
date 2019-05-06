@@ -14,7 +14,7 @@
       >
         <div class="col-xs-12 col-sm-6 col-md-6">
           <ProblemStatusSelect
-            label="Filtre por um tipo"
+            label="Filtre por status"
             v-model="problemStatusOption"
           />
         </div>
