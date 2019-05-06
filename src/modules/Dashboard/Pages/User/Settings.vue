@@ -1,6 +1,6 @@
 <template>
   <QPage padding>
-    <p class="text-h5"> Atualize seus dados </p>
+    <p class="text-h5 no-margin"> Atualize seus dados </p>
 
     <UserSettingsForm v-model="model" />
   </QPage>
