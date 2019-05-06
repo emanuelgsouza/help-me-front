@@ -9,7 +9,7 @@
       </div>
 
       <div
-        v-if="hasUser"
+        v-if="showFilters"
         class="col-xs-12 col-sm-6 col-md-4 row q-col-gutter-xs justify-end"
       >
         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -93,6 +93,9 @@ export default {
     },
     inRecentlyRoute () {
       return this.$route.name === 'dashboard.problems.recently'
+    },
+    showFilters () {
+      return !this.inRecentlyRoute && this.hasUser
     },
     hasProblems () {
       return !isEmpty(this.problems)
