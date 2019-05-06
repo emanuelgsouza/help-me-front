@@ -18,9 +18,18 @@
       v-if="hasUser && !isUserLoading"
       flat
       :icon="isAdmin ? 'fas fa-user-shield' : ''"
-      :label="username">
+      :label="userName">
 
       <QList>
+        <QItem clickable v-close-popup :to="{name: 'dashboard.user.settings'}">
+          <QItemSection>
+            <QItemLabel> Configurações </QItemLabel>
+          </QItemSection>
+          <QItemSection avatar>
+            <QIcon name="settings"
+          />
+          </QItemSection>
+        </QItem>
         <QItem clickable v-close-popup @click="logout">
           <QItemSection>
             <QItemLabel> Sair </QItemLabel>
@@ -45,6 +54,7 @@ import {
   QIcon,
   QItemLabel
 } from 'quasar'
+import { first } from 'lodash'
 import { loginWithGoogle } from 'src/services/firebase/auth'
 import injectUser from 'src/domains/User/mixins/inject-user'
 
@@ -58,6 +68,22 @@ export default {
     QItemSection,
     QIcon,
     QItemLabel
+  },
+  computed: {
+    isMobile () {
+      return this.$q.platform.is.mobile
+    },
+    userName () {
+      if (!this.hasUser) {
+        return null
+      }
+
+      if (this.isMobile) {
+        return first(this.username.split(' '))
+      }
+
+      return this.username
+    }
   },
   methods: {
     login () {
