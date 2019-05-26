@@ -32,7 +32,7 @@ export const PROBLEM_STATUS_CONSTANTS = {
  * @type {Object}
  */
 export const STATUS_COLOR = {
-  PENDING_APPROVE: 'warning',
+  PENDING_APPROVE: 'negative',
   PENDING: 'orange',
   APPRECIATED: 'positive'
 }

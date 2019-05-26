@@ -6,7 +6,6 @@ import { FILTER_OPTIONS } from 'src/domains/Problems/constants'
 const getProblemsByUser = (userUid, status, filter) => {
   let query = firestore
     .collection('problems')
-    .where('approved', '==', true)
     .where('deleted', '==', false)
     .where('user_uid', '==', userUid)
 

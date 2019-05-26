@@ -4,18 +4,24 @@
     square
     text-color="white"
     :color="problemStatusColor"
-  > {{ problemStatusLabel }} </QChip>
+    @click="setFilter"
+  >
+    {{ problemStatusLabel }}
+    <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+      {{ problemStatusDescription }}
+    </QTooltip>
+  </QChip>
 </template>
 
 <script>
 import { get } from 'lodash'
-import { QChip } from 'quasar'
+import { QChip, QTooltip } from 'quasar'
 
 import { PROBLEM_STATUS, STATUS_COLOR } from 'src/domains/ProblemStatus/constants'
 
 export default {
   name: 'ProblemStatus',
-  components: { QChip },
+  components: { QChip, QTooltip },
   props: {
     problem: {
       type: Object,
@@ -23,7 +29,14 @@ export default {
     }
   },
   computed: {
+    isProblemApproved () {
+      return get(this.problem, 'approved', false)
+    },
     problemStatus () {
+      if (!this.isProblemApproved) {
+        return 'PENDING_APPROVE'
+      }
+
       const STATUS = get(this.problem, 'problem_status', '')
       return STATUS
     },
@@ -32,6 +45,9 @@ export default {
     },
     problemStatusColor () {
       return STATUS_COLOR[this.problemStatus]
+    },
+    problemStatusDescription () {
+      return PROBLEM_STATUS[this.problemStatus].description || ''
     }
   }
 }

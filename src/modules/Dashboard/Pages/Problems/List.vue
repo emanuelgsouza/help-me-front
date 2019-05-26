@@ -105,6 +105,10 @@ export default {
         return 'Veja os problemas recentemente criados'
       }
 
+      if (this.hasUser) {
+        return 'Meu problemas'
+      }
+
       return 'Conheça os problemas na nossa plataforma'
     },
     optionsProblem () {
