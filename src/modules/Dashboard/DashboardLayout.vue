@@ -48,7 +48,7 @@
     </QDrawer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-if="!isUserLoading" />
 
       <CreateProblemModal ref="createProblem" @refetch="onRefetch" />
 

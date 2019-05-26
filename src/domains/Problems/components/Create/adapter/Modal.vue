@@ -64,6 +64,8 @@ export default {
                 icon: 'thumb_up'
               })
 
+              this.$emit('refetch')
+
               this.close()
             })
             .catch(err => {

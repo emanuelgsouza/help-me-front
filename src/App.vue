@@ -39,7 +39,7 @@ export default {
     },
     showLoadingToUser () {
       return this.$q.loading.show({
-        message: 'Carregando os dados do usuário'
+        message: 'Carregando os dados da aplicação'
       })
     },
     hideLoadingToUser () {
