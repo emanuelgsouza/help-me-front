@@ -15,11 +15,11 @@
       <LoginButton style="display: block; margin: 0 auto" />
     </div>
 
-    <div class="bg-blue text-white q-pa-xs rounded-borders" v-if="hasUser">
+    <!-- <div class="bg-blue text-white q-pa-xs rounded-borders" v-if="hasUser">
       <p class="q-ma-none text-center">
         Após criar um problema, ele irá para análise por parte da Coordenadoria de TI da Unigranrio, para que após aprovado, ele possa aparecer na listagem de problemas.
       </p>
-    </div>
+    </div> -->
 
     <CreateProblem @submit="onSubmit" />
   </AppModal>
@@ -43,32 +43,39 @@ export default {
   methods: {
     onSubmit (model) {
       this.model = { ...model }
-      this.$q.loading.show({
-        message: 'Subindo informações do problema',
-        color: 'primary'
+
+      return this.$q.dialog({
+        message: 'Após criar um problema, ele irá para análise por parte da Coordenadoria de TI da Unigranrio, para que após aprovado, ele possa aparecer na listagem de problemas.',
+        preventClose: true
       })
-
-      return createProblem(model, this.user)
-        .then(() => {
-          this.$q.loading.hide()
-
-          this.$q.notify({
-            message: 'Problema criado com sucesso',
-            color: 'positive',
-            icon: 'thumb_up'
+        .onOk(() => {
+          this.$q.loading.show({
+            message: 'Subindo informações do problema',
+            color: 'primary'
           })
 
-          this.close()
-        })
-        .catch(err => {
-          this.$q.loading.hide()
-          console.error(err)
+          return createProblem(model, this.user)
+            .then(() => {
+              this.$q.loading.hide()
 
-          this.$q.notify({
-            message: 'Houve algum problema na criação do problema, contacte o suporte',
-            color: 'negative',
-            icon: 'thumb_down'
-          })
+              this.$q.notify({
+                message: 'Problema criado com sucesso',
+                color: 'positive',
+                icon: 'thumb_up'
+              })
+
+              this.close()
+            })
+            .catch(err => {
+              this.$q.loading.hide()
+              console.error(err)
+
+              this.$q.notify({
+                message: 'Houve algum problema na criação do problema, contacte o suporte',
+                color: 'negative',
+                icon: 'thumb_down'
+              })
+            })
         })
     }
   }
