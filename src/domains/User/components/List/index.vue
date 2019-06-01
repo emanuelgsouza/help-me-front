@@ -24,7 +24,7 @@
       </template>
 
       <template
-        v-if="hasSelectedUser"
+        v-if="hasSelectedUser && !isOwnUser"
         v-slot:top-left
       >
         <UserActions
@@ -40,14 +40,16 @@
 
 <script>
 import { QTable, QInput, QIcon } from 'quasar'
-import { first, isEmpty } from 'lodash'
+import { first, isEmpty, get } from 'lodash'
 import UserActions from './UserActions'
 import { columns } from './config'
 import { loadUsers } from 'src/services/firebase/database'
+import injectUser from 'src/domains/User/mixins/inject-user'
 
 export default {
   name: 'UserListForm',
   components: { QTable, QInput, QIcon, UserActions },
+  mixins: [ injectUser ],
   data: () => ({
     listUsers: [],
     columns,
@@ -60,6 +62,12 @@ export default {
     },
     selectedUser () {
       return first(this.selectedUsers)
+    },
+    actionUserUid () {
+      return get(this.selectedUser, 'uid', null)
+    },
+    isOwnUser () {
+      return this.actionUserUid === this.userUid
     }
   },
   methods: {

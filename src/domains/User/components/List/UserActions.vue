@@ -5,7 +5,7 @@
         <QList>
           <QItem
             clickable
-            @click="$emit('editStatus')"
+            @click="permissions"
           >
             <QItemSection> Permissões </QItemSection>
           </QItem>
@@ -42,6 +42,9 @@ export default {
   props: {
     actionUser: Object
   },
+  data: () => ({
+    userPermission: false
+  }),
   computed: {
     actionUserUid () {
       return get(this.actionUser, 'uid', null)
@@ -49,6 +52,9 @@ export default {
     isOwnUser () {
       return this.actionUserUid === this.userUid
     }
+  },
+  watch: {
+    user: 'fillUser'
   },
   methods: {
     deleteUser () {
@@ -79,7 +85,55 @@ export default {
               })
             })
         })
+    },
+    permissions () {
+      this.$q.dialog({
+        title: 'Permissões do usuário',
+        message: 'Escolha qual o status do usuário no sistema',
+        options: {
+          type: 'radio',
+          model: this.userPermission,
+          items: [
+            { label: 'Usuário Administrador', value: true, color: 'secondary' },
+            { label: 'Usuário Comum', value: false }
+          ]
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(isAdmin => {
+        const model = {
+          is_admin: isAdmin
+        }
+
+        return editUser(this.actionUserUid, model)
+          .then(() => {
+            this.$q.notify({
+              message: 'Mudança feita com sucesso',
+              color: 'positive'
+            })
+
+            this.$emit('refresh')
+          })
+          .catch(err => {
+            console.error(err)
+            this.$q.notify({
+              message: 'Não foi possível executar essa ação',
+              color: 'negative'
+            })
+          })
+      }).onCancel(() => {
+        console.log('>>>> Cancel')
+      }).onDismiss(() => {
+        console.log('I am triggered on both OK and Cancel')
+      })
+    },
+    fillUser (user) {
+      console.log(user.is_admin)
+      this.userPermission = user.is_admin
     }
+  },
+  mounted () {
+    this.fillUser(this.actionUser)
   }
 }
 </script>
