@@ -15,11 +15,11 @@ export default [
         name: 'dashboard.problems.recently',
         component: () => import('./Pages/Problems/List.vue')
       },
-      // {
-      //   path: '/dashboard/problems/create',
-      //   name: 'dashboard.problems.create',
-      //   component: () => import('./Pages/Problems/Create.vue')
-      // },
+      {
+        path: '/dashboard/user/list',
+        name: 'dashboard.user.list',
+        component: () => import('./Pages/User/List.vue')
+      },
       {
         path: '/dashboard/user/settings',
         name: 'dashboard.user.settings',

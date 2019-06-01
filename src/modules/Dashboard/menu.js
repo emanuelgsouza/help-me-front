@@ -29,16 +29,16 @@ export default [
       name: 'dashboard.problems.recently'
     }
   },
-  // {
-  //   icon: 'add',
-  //   label: 'Criar Problema',
-  //   separator: true,
-  //   requireAdmin: false,
-  //   requireUser: false,
-  //   to: {
-  //     name: 'dashboard.problems.create'
-  //   }
-  // },
+  {
+    icon: 'add',
+    label: 'Usuários',
+    separator: true,
+    requireAdmin: true,
+    requireUser: true,
+    to: {
+      name: 'dashboard.user.list'
+    }
+  },
   {
     icon: 'settings',
     label: 'Atualize seus dados',
