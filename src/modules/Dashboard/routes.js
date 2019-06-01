@@ -16,6 +16,11 @@ export default [
         component: () => import('./Pages/Problems/List.vue')
       },
       {
+        path: '/dashboard/problems/admin',
+        name: 'dashboard.problems.admin',
+        component: () => import('./Pages/Problems/List.vue')
+      },
+      {
         path: '/dashboard/user/list',
         name: 'dashboard.user.list',
         component: () => import('./Pages/User/List.vue')

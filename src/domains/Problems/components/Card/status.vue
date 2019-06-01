@@ -4,7 +4,6 @@
     square
     text-color="white"
     :color="problemStatusColor"
-    @click="setFilter"
   >
     {{ problemStatusLabel }}
     <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">

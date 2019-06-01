@@ -94,6 +94,9 @@ export default {
     inRecentlyRoute () {
       return this.$route.name === 'dashboard.problems.recently'
     },
+    isAdminRoute () {
+      return this.$route.name === 'dashboard.problems.admin'
+    },
     showFilters () {
       return !this.inRecentlyRoute && this.hasUser
     },
@@ -101,6 +104,10 @@ export default {
       return !isEmpty(this.problems)
     },
     title () {
+      if (this.isAdminRoute) {
+        return 'Todos os problemas'
+      }
+
       if (this.inRecentlyRoute) {
         return 'Veja os problemas recentemente criados'
       }
@@ -112,6 +119,25 @@ export default {
       return 'Conheça os problemas na nossa plataforma'
     },
     optionsProblem () {
+      if (this.isAdminRoute) {
+        const options = {
+          admin: true,
+          status: this.problemStatusOption
+        }
+
+        if (this.isNothing) {
+          options['filter'] = FILTER_OPTIONS.NOTHING
+          options['status'] = this.problemStatusOption
+          return options
+        }
+
+        if (this.withoutSolution) {
+          options['filter'] = FILTER_OPTIONS.WITHOUT_SOLUTION
+          options['status'] = this.problemStatusOption
+          return options
+        }
+      }
+
       if (this.inRecentlyRoute) {
         return {
           recently: true,

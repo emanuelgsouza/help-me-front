@@ -30,6 +30,16 @@ export default [
     }
   },
   {
+    icon: 'inbox',
+    label: 'Todos os problemas',
+    separator: true,
+    requireAdmin: true,
+    requireUser: true,
+    to: {
+      name: 'dashboard.problems.admin'
+    }
+  },
+  {
     icon: 'add',
     label: 'Usuários',
     separator: true,
