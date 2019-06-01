@@ -14,7 +14,7 @@
     />
 
     <div class="q-my-md">
-      <label class="no-margin"> Você é funcionário da Unigranrio? </label>
+      <label class="no-margin"> Qual o seu vínculo com a Unigranrio? </label>
       <QOptionGroup
         inline
         :value="userData.university_link"
@@ -80,11 +80,11 @@ export default {
         value: UNIVERSITY_LINKS.STUDENT
       },
       {
-        label: 'Não',
+        label: 'Não possuo vínculo',
         value: UNIVERSITY_LINKS.NOT_EMPLOYEE
       },
       {
-        label: 'Sim',
+        label: 'Sim funcionário',
         value: UNIVERSITY_LINKS.EMPLOYEE
       }
     ]
