@@ -40,7 +40,7 @@ export default [
     }
   },
   {
-    icon: 'add',
+    icon: 'person',
     label: 'Usuários',
     separator: true,
     requireAdmin: true,

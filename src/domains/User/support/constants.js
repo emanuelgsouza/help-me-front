@@ -10,3 +10,9 @@ export const UNIVERSITY_LINKS = {
   EMPLOYEE: 'EMPLOYEE',
   NOT_EMPLOYEE: 'NOT_EMPLOYEE'
 }
+
+export const UNIVERSITY_LINKS_LABELS = {
+  STUDENT: 'Estudante',
+  EMPLOYEE: 'Funcionário',
+  NOT_EMPLOYEE: 'Não possui'
+}

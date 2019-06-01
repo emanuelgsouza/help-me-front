@@ -10,11 +10,16 @@
             <QItemSection> Permissões </QItemSection>
           </QItem>
           <QItem
-            v-if="!isOwnUser"
             clickable
             @click="deleteUser"
           >
             <QItemSection> Excluir Usuário </QItemSection>
+          </QItem>
+          <QItem
+            clickable
+            @click="cards"
+          >
+            <QItemSection> Acessar Cards </QItemSection>
           </QItem>
         </QList>
       </QMenu>
@@ -125,6 +130,15 @@ export default {
         console.log('>>>> Cancel')
       }).onDismiss(() => {
         console.log('I am triggered on both OK and Cancel')
+      })
+    },
+    cards () {
+      this.$router.push({
+        name: 'dashboard.problems.list',
+        query: {
+          user: this.actionUserUid,
+          userName: this.actionUser.name
+        }
       })
     },
     fillUser (user) {

@@ -57,7 +57,7 @@
 
 <script>
 import { QSelect } from 'quasar'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNil, get } from 'lodash'
 import ProblemCard from 'src/domains/Problems/components/Card'
 import getProblems from 'src/services/firebase/database/get-problems'
 import AppLoading from 'src/components/Loading'
@@ -97,6 +97,15 @@ export default {
     isAdminRoute () {
       return this.$route.name === 'dashboard.problems.admin'
     },
+    uidFromRoute () {
+      return get(this.$route, 'query.user', null)
+    },
+    nameFromRoute () {
+      return get(this.$route, 'query.userName', null) || '---'
+    },
+    hasFilterByUid () {
+      return !isNil(this.uidFromRoute)
+    },
     showFilters () {
       return !this.inRecentlyRoute && this.hasUser
     },
@@ -104,6 +113,10 @@ export default {
       return !isEmpty(this.problems)
     },
     title () {
+      if (this.hasFilterByUid) {
+        return `Problemas cadastrados pelo usuário ${this.nameFromRoute}`
+      }
+
       if (this.isAdminRoute) {
         return 'Todos os problemas'
       }
@@ -119,23 +132,20 @@ export default {
       return 'Conheça os problemas na nossa plataforma'
     },
     optionsProblem () {
+      if (this.hasFilterByUid) {
+        const options = this.setFilters({
+          userUid: this.uidFromRoute,
+          status: this.problemStatusOption
+        })
+
+        return options
+      }
+
       if (this.isAdminRoute) {
-        const options = {
+        return this.setFilters({
           admin: true,
           status: this.problemStatusOption
-        }
-
-        if (this.isNothing) {
-          options['filter'] = FILTER_OPTIONS.NOTHING
-          options['status'] = this.problemStatusOption
-          return options
-        }
-
-        if (this.withoutSolution) {
-          options['filter'] = FILTER_OPTIONS.WITHOUT_SOLUTION
-          options['status'] = this.problemStatusOption
-          return options
-        }
+        })
       }
 
       if (this.inRecentlyRoute) {
@@ -170,7 +180,8 @@ export default {
     filterOption: 'loadProblems',
     problemStatusOption: 'loadProblems',
     hasUser: 'fillFilter',
-    inRecentlyRoute: 'loadProblems'
+    inRecentlyRoute: 'loadProblems',
+    '$route': 'loadProblems'
   },
   methods: {
     loadProblems () {
@@ -187,6 +198,21 @@ export default {
       this.filterOptions = Object.values(getFilterOptions(hasUser))
 
       this.loadProblems()
+    },
+    setFilters (options) {
+      if (this.isNothing) {
+        options['filter'] = FILTER_OPTIONS.NOTHING
+        options['status'] = this.problemStatusOption
+        return options
+      }
+
+      if (this.withoutSolution) {
+        options['filter'] = FILTER_OPTIONS.WITHOUT_SOLUTION
+        options['status'] = this.problemStatusOption
+        return options
+      }
+
+      return options
     }
   },
   mounted () {

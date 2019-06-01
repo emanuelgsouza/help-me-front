@@ -33,8 +33,6 @@
         />
       </template>
     </QTable>
-
-    {{ selectedUsers }}
   </div>
 </template>
 
