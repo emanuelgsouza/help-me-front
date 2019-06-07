@@ -54,8 +54,8 @@ export default {
       // @TODO translate
       const reload = () => document.location.reload(true)
       this.$q.dialog({
-        title: 'Update',
-        message: 'Há uma atualização disponível, atualize sua página para carregá-la',
+        title: 'Atualização disponível',
+        message: 'Uma versão mais atualizada já está disponível, clique em Ok para atualizar',
         position: 'top',
         cancel: true
       })
