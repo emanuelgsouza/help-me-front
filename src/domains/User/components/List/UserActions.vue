@@ -103,7 +103,15 @@ export default {
             { label: 'Usuário Comum', value: false }
           ]
         },
-        cancel: true,
+        cancel: {
+          label: 'Cancelar',
+          flat: true
+        },
+        ok: {
+          label: 'Salvar',
+          flat: true,
+          color: 'positive'
+        },
         persistent: true
       }).onOk(isAdmin => {
         const model = {

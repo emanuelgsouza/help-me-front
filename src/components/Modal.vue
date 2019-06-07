@@ -67,14 +67,14 @@ export default {
       }
 
       if (this.size === 'small') {
-        return null
+        return 'min-width: 360px'
       }
 
       if (this.size === 'medium') {
         return 'width: 700px; max-width: 80vw;'
       }
 
-      return null
+      return 'min-width: 360px'
     }
   },
   methods: {

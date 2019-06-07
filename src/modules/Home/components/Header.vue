@@ -14,7 +14,7 @@
     </p>
 
     <p class="description q-mb-lg q-pa-md text-h6 text-grey-1 text-center">
-      O projeto Help-Me! vem para aproximar a comunidade, com seus problemas, da Universidade, com suas soluções. O objetivo é propor problemas para que os alunos dos cursos de tecnologia possam se engajar em solucioná-los, por meio da transformação de ideias em soluções. Venha conhecer nosso repositório de problemas com suas soluções!
+      O projeto Help-Me! vem para aproximar a comunidade, com seus problemas, da Universidade, com suas soluções. O objetivo é propor problemas para que os alunos dos cursos de tecnologia possam se engajar em solucioná-los, por meio da transformação de ideias em soluções. Venha conhecer nosso repositório de problemas!
     </p>
 
     <div class="button-container">

@@ -8,9 +8,9 @@
 
     <QBtn
       v-if="!hasUser && !isUserLoading"
-      label="Login"
+      label="Entre com sua Google"
       color="negative"
-      icon-right="fab fa-google"
+      icon="fab fa-google"
       @click="login"
     />
 

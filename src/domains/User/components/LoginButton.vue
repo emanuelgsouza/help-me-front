@@ -1,8 +1,8 @@
 <template>
   <QBtn
-    label="Login"
+    label="Entre com sua conta Google"
     color="negative"
-    icon-right="fab fa-google"
+    icon="fab fa-google"
     @click="login"
   />
 </template>

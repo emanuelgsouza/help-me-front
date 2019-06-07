@@ -21,12 +21,7 @@
       v-model="model.suggestion"
       :disable="disableInput" />
 
-    <div class="q-mt-md">
-      <QBtn
-        label="Cadastrar"
-        type="submit"
-        color="primary"
-        :disable="disableSaveBtn" />
+    <div class="q-mt-md text-right">
       <QBtn
         label="Limpar"
         type="reset"
@@ -34,6 +29,11 @@
         flat
         class="q-ml-sm"
         :disable="disableInput" />
+      <QBtn
+        label="Cadastrar"
+        type="submit"
+        color="primary"
+        :disable="disableSaveBtn" />
     </div>
   </QForm>
 </template>

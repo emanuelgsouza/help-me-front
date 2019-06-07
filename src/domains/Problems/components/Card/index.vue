@@ -54,22 +54,6 @@
       </QChip>
 
       <div class="row items-center">
-        <!-- <QIcon
-          v-if="canEditProblem"
-          class="q-mr-md lightbulb cursor-pointer"
-          name="fas fa-edit"
-          size="32px"
-          @click="openEditProblemModal" /> -->
-        <!-- <QIcon
-          v-if="isAdmin"
-          class="cursor-pointer"
-          name="fas fa-user-alt"
-          @click="openUserInformation">
-          <QTooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-            Clique para ver informações do usuário que criou
-          </QTooltip>
-        </QIcon> -->
-
         <QBtn
           v-if="hasSuggestion"
           class="cursor-pointer"
@@ -150,7 +134,7 @@ export default {
       return !isEmpty(this.suggestion)
     },
     createdAt () {
-      return moment(toNumber(get(this.problem, 'created'))).format('DD-MM-YYYY HH:mm:ss')
+      return moment(toNumber(get(this.problem, 'created'))).format('DD/MM/YYYY HH:mm:ss')
     },
     problemUserUid () {
       return get(this.problem, 'user_uid', '')
