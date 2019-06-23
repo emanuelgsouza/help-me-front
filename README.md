@@ -10,13 +10,13 @@ Repositório do front-end do projeto Help-Me para a Universidade Unigranrio.
 
 ## Desenvolvimento
 
-1. Clone o projeto com:
+Clone o projeto com:
 
 ```sh
 git clone ...
 ```
 
-1. Use o arquivo `.env.sample` para criar um arquivo de ambiente `.env` com as variáveis do Firebase.
+Use o arquivo `.env.sample` para criar um arquivo de ambiente `.env` com as variáveis do Firebase.
 
 ```sh
 # instala as depedências
@@ -25,7 +25,7 @@ cp .env.sample .env
 
 É necessário ter o Node.js juntamente com o gerenciador de pacotes Yarn para instalar as dependências.
 
-1. Tendo os dois instalados, execute:
+Tendo os dois instalados, execute:
 
 ```sh
 # instala as depedências
