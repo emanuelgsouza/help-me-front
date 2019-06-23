@@ -1,9 +1,15 @@
 <template>
-  <div class="app-version">
-    <QChip dense square icon="fas fa-tag" :color="color" :text-color="textColor">
-      {{ appVersion }}
-    </QChip>
-  </div>
+  <QChip
+    class="app-version"
+    dense
+    square
+    icon="fas fa-tag"
+    :color="color"
+    :text-color="textColor"
+    v-bind="$attrs"
+  >
+      v.{{ appVersion }}
+  </QChip>
 </template>
 
 <script>

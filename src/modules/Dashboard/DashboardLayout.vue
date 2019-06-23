@@ -44,7 +44,20 @@
 
       </QList>
 
-      <AppVersion class="absolute-bottom-left" color="primary" />
+      <div class="absolute-bottom-left q-pa-xs full-width menu-bottom">
+        <QChip
+          color="white"
+          text-color="primary"
+          dense
+          square
+          icon="fas fa-user-tag"
+        >
+          <p class="no-margin">
+            Desenvolvido por <a class="text-secondary link" href="https://emanuelgsouza.dev" target="blanck"> Emanuel </a>
+          </p>
+        </QChip>
+        <AppVersion class="version-chip" text-color="primary" color="white" />
+      </div>
     </QDrawer>
 
     <q-page-container>
@@ -75,6 +88,7 @@ import {
   QItem,
   QItemSection,
   QIcon,
+  QChip,
   QSeparator,
   QTooltip
 } from 'quasar'
@@ -92,6 +106,7 @@ export default {
     QList,
     QItem,
     QIcon,
+    QChip,
     QSeparator,
     QTooltip,
     AppVersion,
@@ -134,5 +149,23 @@ export default {
 
 .app-header {
   background: linear-gradient(145deg, $secondary 11%, $primary 75%);
+}
+
+.menu-bottom {
+  background: linear-gradient(145deg, $secondary 11%, $primary 75%);
+}
+
+.link {
+  text-decoration none;
+  transition: all 0.4s ease;
+}
+
+.link:hover {
+  text-decoration underline;
+}
+
+.version-chip {
+  position: absolute;
+  right: 0;
 }
 </style>
