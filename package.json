@@ -1,6 +1,6 @@
 {
   "name": "help-me-front",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Quasar Framework app",
   "productName": "Quasar App",
   "cordovaId": "org.cordova.quasar.app",
