@@ -31,7 +31,7 @@
           <QItemSection> Aprovar </QItemSection>
         </QItem>
         <QItem
-          v-if="isAdmin"
+          v-if="isShowReject"
           clickable
           @click="$emit('reject')"
         >
@@ -46,6 +46,7 @@
 import { QBtn, QMenu, QList, QItem, QItemSection } from 'quasar'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import { injectProblem } from '../../support'
+import { PROBLEM_STATUS_CONSTANTS } from 'src/domains/ProblemStatus/constants'
 
 export default {
   name: 'ProblemActions',
@@ -60,6 +61,12 @@ export default {
   computed: {
     isShowApproved () {
       return this.isAdmin && !this.isApproved
+    },
+    isRejected () {
+      return PROBLEM_STATUS_CONSTANTS.REJECTED
+    },
+    isShowReject () {
+      return this.isAdmin && !this.isRejected
     }
   }
 }
