@@ -28,14 +28,7 @@ export default {
     }
   },
   computed: {
-    isProblemApproved () {
-      return get(this.problem, 'approved', false)
-    },
     problemStatus () {
-      if (!this.isProblemApproved) {
-        return 'PENDING_APPROVE'
-      }
-
       const STATUS = get(this.problem, 'problem_status', '')
       return STATUS
     },

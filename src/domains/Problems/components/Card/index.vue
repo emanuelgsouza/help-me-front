@@ -15,6 +15,7 @@
             @edit="openEditProblemModal"
             @delete="onDeleteProblem"
             @approve="onApproveProblem"
+            @reject="onRejectProblem"
             @editStatus="openEditProblemStatusModal"
           />
         </div>
@@ -96,7 +97,7 @@ import EditProblemModal from './edit'
 import injectUser from 'src/domains/User/mixins/inject-user'
 import EditProblemStatus from './edit-status'
 import UserInfoModal from 'src/domains/User/components/UserInfo/adapter/Modal'
-import { deleteProblem, approveProblem } from 'src/services/firebase/database'
+import { deleteProblem, approveProblem, rejectProblem } from 'src/services/firebase/database'
 
 export default {
   name: 'ProblemCard',
@@ -178,6 +179,23 @@ export default {
             .then(() => {
               this.$q.notify({
                 message: 'Problema aprovado com sucesso com sucesso',
+                color: 'positive'
+              })
+
+              this.onClose()
+            })
+        })
+    },
+    onRejectProblem () {
+      this.$q.dialog({
+        title: 'Rejeitar',
+        message: 'Confirma a rejeição deste problema?'
+      })
+        .onOk(() => {
+          rejectProblem(this.problemUid, this.userUid)
+            .then(() => {
+              this.$q.notify({
+                message: 'Problema marcado como rejeitado',
                 color: 'positive'
               })
 

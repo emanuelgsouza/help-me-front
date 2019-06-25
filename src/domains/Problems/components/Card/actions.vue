@@ -30,6 +30,13 @@
         >
           <QItemSection> Aprovar </QItemSection>
         </QItem>
+        <QItem
+          v-if="isAdmin"
+          clickable
+          @click="$emit('reject')"
+        >
+          <QItemSection> Rejeitar </QItemSection>
+        </QItem>
       </QList>
     </QMenu>
   </QBtn>

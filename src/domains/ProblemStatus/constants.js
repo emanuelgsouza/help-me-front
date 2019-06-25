@@ -9,14 +9,14 @@ export const PROBLEM_STATUS = {
     value: 'PENDING_APPROVE'
   },
   PENDING: {
-    name: 'Pendente de Aprovação',
-    label: 'Pendente de Aprovação',
-    description: 'O problema uma vez aprovado, estará pendente de aprovação por algum aluno ou grupo de alunos da Unigranrio, para que seja executado um projeto',
+    name: 'Pendente de Conclusão',
+    label: 'Pendente de Conclusão',
+    description: 'O problema uma vez aprovado, estará pendente de conclusão, que ocorre quando um projeto é desenvolvido para solucionar tal problema',
     value: 'PENDING'
   },
   APPRECIATED: {
-    name: 'Aprovado',
-    label: 'Aprovado',
+    name: 'Concluído',
+    label: 'Concluído',
     description: 'Neste status, dizemos que o problema foi "resolvido"',
     value: 'APPRECIATED'
   },
