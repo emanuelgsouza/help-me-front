@@ -206,7 +206,7 @@ export default {
     onDeleteProblem () {
       this.$q.dialog({
         title: 'Aviso',
-        message: 'Você tem certeza que quer excluir esse problema?'
+        message: 'Você tem certeza que quer excluir esse problema? Ao confirmar, o mesmo irá não ficar mais visível para nenhum outro usuário'
       })
         .onOk(() => {
           deleteProblem(this.problemUid, this.userUid)
